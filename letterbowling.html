@@ -1,0 +1,551 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Letter Bowling</title>
+	<link rel="icon" type="image/x-icon" href="/favicon.ico">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<meta http-equiv="cleartype" content="on">
+	<style>
+		.frameTable {
+		  height: 50px;
+		}
+		.frameScore {
+		  display: inline-block;
+		  min-width: 40px;
+		  max-width: 40px;
+		  width: 40px;
+		  height: 40px;
+		}
+		.navbar {
+		  overflow: hidden;
+		  background-color: #333;
+		  font-family: Arial, Helvetica, sans-serif;
+		}
+		.navbar a {
+		  float: left;
+		  font-size: 16px;
+		  color: white;
+		  text-align: center;
+		  padding: 14px 16px;
+		  text-decoration: none;
+		}
+		.dropdown {
+		  float: left;
+		  overflow: hidden;
+		}
+		.dropdown .dropbtn {
+		  cursor: pointer;
+		  font-size: 16px;  
+		  border: none;
+		  outline: none;
+		  color: white;
+		  padding: 14px 16px;
+		  background-color: inherit;
+		  font-family: inherit;
+		  margin: 0;
+		}
+		.navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
+		  background-color: red;
+		}
+		.dropdown-content {
+		  display: none;
+		  position: absolute;
+		  background-color: #f9f9f9;
+		  min-width: 160px;
+		  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+		  z-index: 1;
+		}
+		.dropdown-content a {
+		  float: none;
+		  color: black;
+		  padding: 12px 16px;
+		  text-decoration: none;
+		  display: block;
+		  text-align: left;
+		}
+		.dropdown-content a:hover {
+		  background-color: #ddd;
+		}
+		.show {
+		  display: block;
+		}
+		.pin0  {grid-area: pin0;}
+		.pin1  {grid-area: pin1;}
+		.pin2  {grid-area: pin2;}
+		.pin3  {grid-area: pin3;}
+		.pin4  {grid-area: pin4;}
+		.pin5  {grid-area: pin5;}
+		.pin6  {grid-area: pin6;}
+		.pin7  {grid-area: pin7;}
+		.pin8  {grid-area: pin8;}
+		.pin9  {grid-area: pin9;}
+
+		.pin-container {
+			display: grid;
+			grid-template-areas:
+				'pin0 pin4 pin1 pin5 pin2 pin6 pin3'
+				'pin0 pin4 pin1 pin5 pin2 pin6 pin3'
+				'pin0 pin4 pin7 pin5 pin8 pin6 pin3'
+				'pin0 pin4 pin7 pin9 pin8 pin6 pin3'
+				'pin0 pin4 pin7 pin9 pin8 pin6 pin3'
+		}
+		.pin-container-container {
+			margin-top: 20;
+			display: inline-block;
+			width: 300px;
+			max-width: 300px;
+			min-width: 300px;
+			height: 200px;
+		}
+	</style>
+</head>
+<body class="input">
+
+<div id="main">
+	<h2 id="test">Debug</h2>
+	<p>
+	<div class="navbar">
+	  <div class="dropdown">
+	    <button class="dropbtn" onClick="fileClick()">File</button>
+	    <div class="dropdown-content" id="fileDropdown">
+	      <a href="#">Open...</a>
+	    </div>
+	  </div>
+	  <div class="dropdown">
+	    <button class="dropbtn" onClick="settingsClick()">Settings</button>
+	    <div class="dropdown-content" id="settingsDropdown">
+	      <a href="#">Open 2...</a>
+	      <a href="#">Open 3...</a>
+	    </div>
+	  </div>
+	  <div class="dropdown">
+	    <button class="dropbtn" onClick="helpClick()">Help</button>
+	    <div class="dropdown-content" id="helpDropdown">
+	      <a href="#">Open 4...</a>
+	      <a href="#">Open 5...</a>
+	      <a href="#">Open 6...</a>
+	      <a href="#">Open 7...</a>
+	    </div>
+	  </div>
+	</div>
+	<div class="pin-container-container"><div class="pin-container">
+	  <div class="pin0"><canvas id="pin0" width="85" height="212" onClick="pinClick(0)"></canvas></div>
+	  <div class="pin1"><canvas id="pin1" width="85" height="85" onClick="pinClick(1)"></canvas></div>
+	  <div class="pin2"><canvas id="pin2" width="85" height="85" onClick="pinClick(2)"></canvas></div>
+	  <div class="pin3"><canvas id="pin3" width="85" height="212" onClick="pinClick(3)"></canvas></div>
+	  <div class="pin4"><canvas id="pin4" width="85" height="171" onClick="pinClick(4)"></canvas></div>
+	  <div class="pin5"><canvas id="pin5" width="85" height="127" onClick="pinClick(5)"></canvas></div>
+	  <div class="pin6"><canvas id="pin6" width="85" height="127" onClick="pinClick(6)"></canvas></div>
+	  <div class="pin7"><canvas id="pin7" width="85" height="127" onClick="pinClick(7)"></canvas></div>
+	  <div class="pin8"><canvas id="pin8" width="85" height="127" onClick="pinClick(8)"></canvas></div>
+	  <div class="pin9"><canvas id="pin9" width="85" height="85" onClick="pinClick(9)"></canvas></div>
+	</div></div>
+	<p>
+	<table>
+	  <tr>
+	    <td>
+		<button id="seed"/>
+	    </td>
+	    <td/>
+	    <td>
+		<span>Strike here!</span>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td>
+		<button id="nextFrame"/>Next Frame
+	    </td>
+	    <td/>
+	    <td>
+		<span>Bowling Ball Here!</span>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td>
+		<button id="checkWords"/>CHECK
+	    </td>
+	    <td>
+		<input id="word" onKeydown="update(true)" onChange="update(true)"></input>
+	    </td>
+	    <td>
+		<button id="bowl"/>Bowl
+	    </td>
+	  </tr>
+	  <tr>
+	    <td>
+		<div class="frameTable"><table><tr>
+		  <td><div class="frameScore"><canvas id="scoreArea0" onClick="frameClick(0)"></canvas></div></td>
+		  <td><div class="frameScore"><canvas id="scoreArea1" onClick="frameClick(1)"></canvas></div></td>
+		  <td><div class="frameScore"><canvas id="scoreArea2" onClick="frameClick(2)"></canvas></div></td>
+		  <td><div class="frameScore"><canvas id="scoreArea3" onClick="frameClick(3)"></canvas></div></td>
+		  <td><div class="frameScore"><canvas id="scoreArea4" onClick="frameClick(4)"></canvas></div></td>
+		  <td><div class="frameScore"><canvas id="scoreArea5" onClick="frameClick(5)"></canvas></div></td>
+		  <td><div class="frameScore"><canvas id="scoreArea6" onClick="frameClick(6)"></canvas></div></td>
+		  <td><div class="frameScore"><canvas id="scoreArea7" onClick="frameClick(7)"></canvas></div></td>
+		  <td><div class="frameScore"><canvas id="scoreArea8" onClick="frameClick(8)"></canvas></div></td>
+		  <td><div class="frameScore"><canvas id="scoreArea9" onClick="frameClick(9)"></canvas></div></td>
+		  <td><div class="frameScore"><canvas id="scoreArea10" onClick="frameClick(10)"></canvas></div></td>
+		  <td><div class="frameScore"><canvas id="scoreAreaTotal"></canvas></div></td>
+		</tr></table></div>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td>
+		<table>
+		  <tr>
+		    <td><span id="word00"/>00</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word01"/>01</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word02"/>02</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word03"/>03</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word04"/>04</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word05"/>05</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word06"/>06</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word07"/>07</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word08"/>08</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word09"/>09</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word10"/>10</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word11"/>11</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word12"/>12</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word13"/>13</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word14"/>14</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word15"/>15</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word16"/>16</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word17"/>17</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word18"/>18</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word19"/>19</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word20"/>20</td>
+		  </tr>
+		  <tr>
+		    <td><span id="word21"/>21</td>
+		  </tr>
+		</table>
+	    </td>
+	    <td/>
+	    <td>
+		<div id="messages"/>
+	    </td>
+	  </tr>
+	</table>
+	<p>
+</div>
+
+<script type="text/javascript">
+	var dictionary=[];
+	var answer=["ABCDEFGHIJ"];
+
+	var displayFrame=0;
+
+	const ICON_WIDTH=84;
+	const ICON_HEIGHT=84;
+
+	const x=[0,2,4,6,1,3,5,2,4,3];
+	const y=[0,0,0,0,1,1,1,2,2,3];
+	const yy=[0,0,0,0,42,42,42,0,0,0];
+
+	function update(newWord) {
+		for(var i=0;i<10;i++) {
+			const canvas = document.getElementById("pin"+i);
+			const context = canvas.getContext("2d");
+			context.font = "20px serif";
+			var outline = "white";
+			drawBowlingPin(context,0,yy[i],answer && answer[displayFrame][i],outline,false);
+		}
+		for(var i=0;i<10;i++) {
+			const canvas = document.getElementById("scoreArea"+i);
+			const context = canvas.getContext("2d");
+			drawText(context,20,20,""+i);
+		}
+	}
+
+	const pinPoints = [[0.50,0.00],
+			[0.52,0.00], [0.60,0.08], [0.60,0.10],
+			[0.60,0.12], [0.58,0.28], [0.58,0.30],
+			[0.58,0.32], [0.70,0.55], [0.70,0.60],
+			[0.70,0.65], [0.60,0.95], [0.55,1.00],
+			[0.53,1.00], [0.50,1.00], [0.45,1.00],
+			[0.40,0.95], [0.30,0.65], [0.30,0.60],
+			[0.30,0.55], [0.42,0.32], [0.42,0.30],
+			[0.42,0.28], [0.40,0.12], [0.40,0.10],
+			[0.40,0.08], [0.48,0.00], [0.50,0.00]
+	];
+
+	function drawBowlingPin(context,x,y,text,outline,down) {
+		const saveStroke = context.strokeStyle;
+		const saveLineWidth = context.lineWidth;
+		const saveFill = context.fillStyle;
+		context.fillStyle = "white";
+		context.fillRect(x,y,ICON_WIDTH,ICON_HEIGHT);
+		context.strokeStyle = outline;
+		context.lineWidth = 4;
+		context.strokeRect(x,y,ICON_WIDTH,ICON_HEIGHT);
+		context.strokeStyle = saveStroke;
+		context.lineWidth = saveLineWidth;
+		if(down) {
+			context.beginPath();
+			context.moveTo(x+tY(0),y+tX(0));
+			for(var i=1;i<pinPoints.length;i+=3) {
+				context.bezierCurveTo(x+tY(i+0),y+tX(i+0),x+tY(i+1),y+tX(i+1),x+tY(i+2),y+tX(i+2));
+			}
+			context.fillStyle="lightgray";
+			context.fill();
+			context.stroke();
+
+			context.beginPath();
+			context.moveTo(x+tY(6),y+tX(6));
+			context.lineTo(x+tY(21),y+tX(21));
+			context.lineTo(x+tY(21)-ICON_HEIGHT/20,y+tX(21));
+			context.lineTo(x+tY(6)-ICON_HEIGHT/20,y+tX(6));
+			context.fillStyle="red";
+			context.fill();
+		
+			context.beginPath();
+			context.moveTo(x+tY(6)-2*ICON_HEIGHT/20,y+tX(6));
+			context.lineTo(x+tY(21)-2*ICON_HEIGHT/20,y+tX(21));
+			context.lineTo(x+tY(21)-3*ICON_HEIGHT/20,y+tX(21));
+			context.lineTo(x+tY(6)-3*ICON_HEIGHT/20,y+tX(6));
+			context.fill();
+			context.fillStyle=saveFill;
+		
+			drawText(context,x+2*ICON_WIDTH/3,y+ICON_HEIGHT/2,text);
+		} else {
+			context.beginPath();
+			context.moveTo(x+tX(0),y+tY(0));
+			for(var i=1;i<pinPoints.length;i+=3) {
+				context.bezierCurveTo(x+tX(i+0),y+tY(i+0),x+tX(i+1),y+tY(i+1),x+tX(i+2),y+tY(i+2));
+			}
+			context.fillStyle="white";
+			context.fill();
+			context.stroke();
+		
+			context.beginPath();
+			context.moveTo(x+tX(6),y+tY(6));
+			context.lineTo(x+tX(21),y+tY(21));
+			context.lineTo(x+tX(21),y+tY(21)-ICON_HEIGHT/20);
+			context.lineTo(x+tX(6),y+tY(6)-ICON_HEIGHT/20);
+			context.fillStyle="red";
+			context.fill();
+		
+			context.beginPath();
+			context.moveTo(x+tX(6),y+tY(6)-2*ICON_HEIGHT/20);
+			context.lineTo(x+tX(21),y+tY(21)-2*ICON_HEIGHT/20);
+			context.lineTo(x+tX(21),y+tY(21)-3*ICON_HEIGHT/20);
+			context.lineTo(x+tX(6),y+tY(6)-3*ICON_HEIGHT/20);
+			context.fill();
+			context.fillStyle=saveFill;
+		
+			drawText(context,x+ICON_WIDTH/2,y+2*ICON_HEIGHT/3,text);
+		}
+	}
+
+	function tX(i) {
+		return pinPoints[i][0]*ICON_WIDTH;
+	}
+
+	function tY(i) {
+		return pinPoints[i][1]*ICON_HEIGHT;
+	}
+
+	function drawText(context,x,y,text) {
+		const metrics = context.measureText(text);
+		context.fillText(text,x-metrics.width/2,y-(metrics.emHeightDescent-metrics.emHeightAscent)/2);
+	}
+
+	function loadDictionary(name) {
+		if(dictionary.length==0 || localStorage.dictionaryName !== name) {
+			if(name) {
+				console.log("User dictionaries not supported!");
+			} else {
+				dictionary=defaultDictionary;
+				console.log(dictionary.length);
+				console.log(" entries read");
+			}
+			localStorage.dictionaryName = name;
+		}
+	}
+
+	parseGame = function(gameText) {
+		loadDictionary();
+		// look at old code!
+		update(true);
+	}
+	newGame = function(seed) {
+		// document.getElementById("test").textContent=MD5(getDateString());
+		document.getElementById("seed").textContent=seed.toString(16).padStart(8,'0');;
+		rng = mulberry32(seed);
+		loadDictionary();
+		// choose words
+		// initialize stuff (like frame)
+		// create localStorage.game
+		update(true);
+	}
+	function getDateString() {
+		const date = new Date();
+		return date.getFullYear()+"-"+((date.getMonth()+1+"").padStart(2,"0"))+"-"+((date.getDate()+"").padStart(2,"0"));
+		// return date.getFullYear()+"-"+(("3").padStart(2,'0'))+"-"+(("7").padStart(2,"0"));
+	}
+	function makeSeed() {
+		const bytes = new Uint8Array(4);
+		window.crypto.getRandomValues(bytes);
+		return bytes[0]+(bytes[1]+(bytes[2]+bytes[3]*256)*256)*256;
+	}
+	function mulberry32(a) {
+		return function() {
+			var t = a += 0x6D2B79F5;
+//console.log(t);
+			t = Math.imul(t ^ t >>> 15, t | 1);
+//console.log(t);
+			t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+//console.log(t);
+			t = ((t ^ t >>> 14) >>> 0);
+//console.log(t);
+			return t;
+		}
+	}
+	// https://stackoverflow.com/questions/14733374/how-to-generate-an-md5-file-hash-in-javascript-node-js#33486055
+	var MD5 = function(d) {
+		var r = M(V(Y(X(d),8*d.length)));
+		return r.toLowerCase()
+	};
+	function M(d) {
+		for(var _,m="0123456789ABCDEF",f="",r=0;r<d.length;r++)
+			_=d.charCodeAt(r),f+=m.charAt(_>>>4&15)+m.charAt(15&_);
+		return f
+	}
+	function X(d) {
+		for(var _=Array(d.length>>2),m=0;m<_.length;m++)
+			_[m]=0;
+		for(m=0;m<8*d.length;m+=8)
+			_[m>>5]|=(255&d.charCodeAt(m/8))<<m%32;
+		return _
+	}
+	function V(d) {
+		for(var _="",m=0;m<32*d.length;m+=8)
+			_+=String.fromCharCode(d[m>>5]>>>m%32&255);
+		return _
+	}
+	function Y(d,_) {
+		d[_>>5]|=128<<_%32,d[14+(_+64>>>9<<4)]=_;
+		for(var m=1732584193,f=-271733879,r=-1732584194,i=271733878,n=0;n<d.length;n+=16) {
+			var h=m,t=f,g=r,e=i;
+			f=md5_ii(f=md5_ii(f=md5_ii(f=md5_ii(f=md5_hh(f=md5_hh(f=md5_hh(f=md5_hh(f=md5_gg(f=md5_gg(f=md5_gg(f=md5_gg(f=md5_ff(f=md5_ff(f=md5_ff(f=md5_ff(f,r=md5_ff(r,i=md5_ff(i,m=md5_ff(m,f,r,i,d[n+0],7,-680876936),f,r,d[n+1],12,-389564586),m,f,d[n+2],17,606105819),i,m,d[n+3],22,-1044525330),r=md5_ff(r,i=md5_ff(i,m=md5_ff(m,f,r,i,d[n+4],7,-176418897),f,r,d[n+5],12,1200080426),m,f,d[n+6],17,-1473231341),i,m,d[n+7],22,-45705983),r=md5_ff(r,i=md5_ff(i,m=md5_ff(m,f,r,i,d[n+8],7,1770035416),f,r,d[n+9],12,-1958414417),m,f,d[n+10],17,-42063),i,m,d[n+11],22,-1990404162),r=md5_ff(r,i=md5_ff(i,m=md5_ff(m,f,r,i,d[n+12],7,1804603682),f,r,d[n+13],12,-40341101),m,f,d[n+14],17,-1502002290),i,m,d[n+15],22,1236535329),r=md5_gg(r,i=md5_gg(i,m=md5_gg(m,f,r,i,d[n+1],5,-165796510),f,r,d[n+6],9,-1069501632),m,f,d[n+11],14,643717713),i,m,d[n+0],20,-373897302),r=md5_gg(r,i=md5_gg(i,m=md5_gg(m,f,r,i,d[n+5],5,-701558691),f,r,d[n+10],9,38016083),m,f,d[n+15],14,-660478335),i,m,d[n+4],20,-405537848),r=md5_gg(r,i=md5_gg(i,m=md5_gg(m,f,r,i,d[n+9],5,568446438),f,r,d[n+14],9,-1019803690),m,f,d[n+3],14,-187363961),i,m,d[n+8],20,1163531501),r=md5_gg(r,i=md5_gg(i,m=md5_gg(m,f,r,i,d[n+13],5,-1444681467),f,r,d[n+2],9,-51403784),m,f,d[n+7],14,1735328473),i,m,d[n+12],20,-1926607734),r=md5_hh(r,i=md5_hh(i,m=md5_hh(m,f,r,i,d[n+5],4,-378558),f,r,d[n+8],11,-2022574463),m,f,d[n+11],16,1839030562),i,m,d[n+14],23,-35309556),r=md5_hh(r,i=md5_hh(i,m=md5_hh(m,f,r,i,d[n+1],4,-1530992060),f,r,d[n+4],11,1272893353),m,f,d[n+7],16,-155497632),i,m,d[n+10],23,-1094730640),r=md5_hh(r,i=md5_hh(i,m=md5_hh(m,f,r,i,d[n+13],4,681279174),f,r,d[n+0],11,-358537222),m,f,d[n+3],16,-722521979),i,m,d[n+6],23,76029189),r=md5_hh(r,i=md5_hh(i,m=md5_hh(m,f,r,i,d[n+9],4,-640364487),f,r,d[n+12],11,-421815835),m,f,d[n+15],16,530742520),i,m,d[n+2],23,-995338651),r=md5_ii(r,i=md5_ii(i,m=md5_ii(m,f,r,i,d[n+0],6,-198630844),f,r,d[n+7],10,1126891415),m,f,d[n+14],15,-1416354905),i,m,d[n+5],21,-57434055),r=md5_ii(r,i=md5_ii(i,m=md5_ii(m,f,r,i,d[n+12],6,1700485571),f,r,d[n+3],10,-1894986606),m,f,d[n+10],15,-1051523),i,m,d[n+1],21,-2054922799),r=md5_ii(r,i=md5_ii(i,m=md5_ii(m,f,r,i,d[n+8],6,1873313359),f,r,d[n+15],10,-30611744),m,f,d[n+6],15,-1560198380),i,m,d[n+13],21,1309151649),r=md5_ii(r,i=md5_ii(i,m=md5_ii(m,f,r,i,d[n+4],6,-145523070),f,r,d[n+11],10,-1120210379),m,f,d[n+2],15,718787259),i,m,d[n+9],21,-343485551),m=safe_add(m,h),f=safe_add(f,t),r=safe_add(r,g),i=safe_add(i,e)
+		}
+		return Array(m,f,r,i)
+	}
+	function md5_cmn(d,_,m,f,r,i) {
+		return safe_add(bit_rol(safe_add(safe_add(_,d),safe_add(f,i)),r),m)
+	}
+	function md5_ff(d,_,m,f,r,i,n) {
+		return md5_cmn(_&m|~_&f,d,_,r,i,n)
+	}
+	function md5_gg(d,_,m,f,r,i,n) {
+		return md5_cmn(_&f|m&~f,d,_,r,i,n)
+	}
+	function md5_hh(d,_,m,f,r,i,n) {
+		return md5_cmn(_^m^f,d,_,r,i,n)
+	}
+	function md5_ii(d,_,m,f,r,i,n) {
+		return md5_cmn(m^(_|~f),d,_,r,i,n)
+	}
+	function safe_add(d,_) {
+		var m=(65535&d)+(65535&_);
+		return (d>>16)+(_>>16)+(m>>16)<<16|65535&m
+	}
+	function bit_rol(d,_) {
+		return d<<_|d>>>32-_
+	}
+
+	window.onload = function() {
+		function show(el) {
+			el.setAttribute("style", "");
+		}
+		function hide(el) {
+			el.setAttribute("style", "display: none;");
+		}
+		if(localStorage.game) {
+			parseGame(localStorage.game);
+		} else {
+			newGame(makeSeed());
+		}
+
+		// For later:
+		// Loading a dictionary automatically starts a new game, which MUST BE SAVED to localstorage, 
+		// so we don't get out of sync.
+		// If I allow loading/saving a game, then I also need to track the dictionary.  Current Logic:
+		//	If the current dictionary matches the desired dictionary, don't do anything
+		//	If the desired dictionary is the default, reaload it.
+		//	Otherwise, prompt the user to load it by name.....
+	}
+
+	function resetClick() {
+	  document.getElementById("fileDropdown").classList.remove("show");
+	  document.getElementById("settingsDropdown").classList.remove("show");
+	  document.getElementById("helpDropdown").classList.remove("show");
+	}
+
+	function fileClick() {
+	  resetClick();
+	  document.getElementById("fileDropdown").classList.toggle("show");
+	}
+
+	function settingsClick() {
+	  resetClick();
+	  document.getElementById("settingsDropdown").classList.toggle("show");
+	}
+
+	function helpClick() {
+	  resetClick();
+	  document.getElementById("helpDropdown").classList.toggle("show");
+	}
+
+	function frameClick(frame) {
+	  resetClick();
+	}
+
+	function pinClick(pin) {
+	  resetClick();
+	}
+</script>
+<script src="./dictionary.js"></script>
+</body>
+</html>
