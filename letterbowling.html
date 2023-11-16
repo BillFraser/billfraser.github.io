@@ -677,10 +677,10 @@ bfraser@alumni.ucsd.edu<p>
 		context.fillStyle = "white";
 		context.fillRect(0,0,SCORE_WIDTH,SCORE_HEIGHT);
 		context.fillStyle = saveFill;
-		context.strokeRect(0,0,SCORE_WIDTH-1,SCORE_HEIGHT-1);
+		context.strokeRect(1,1,SCORE_WIDTH-1,SCORE_HEIGHT-1);
 		if(frame==displayFrame) {
-			context.strokeRect(1,1,SCORE_WIDTH-3,SCORE_HEIGHT-3);
-			context.strokeRect(2,2,SCORE_WIDTH-5,SCORE_HEIGHT-5);
+			context.strokeRect(2,2,SCORE_WIDTH-3,SCORE_HEIGHT-3);
+			context.strokeRect(3,3,SCORE_WIDTH-5,SCORE_HEIGHT-5);
 		}
 		context.beginPath();
 		context.moveTo(1,SCORE_HEIGHT-1);
