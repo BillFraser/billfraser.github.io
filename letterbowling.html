@@ -84,11 +84,11 @@
 		.pin-container {
 			display: grid;
 			grid-template-areas:
-				'pin0 pin4 pin1 pin5 pin2 pin6 pin3'
-				'pin0 pin4 pin1 pin5 pin2 pin6 pin3'
-				'pin0 pin4 pin7 pin5 pin8 pin6 pin3'
-				'pin0 pin4 pin7 pin9 pin8 pin6 pin3'
-				'pin0 pin4 pin7 pin9 pin8 pin6 pin3'
+				'pin6 pin3 pin7 pin4 pin8 pin5 pin9'
+				'pin6 pin3 pin7 pin4 pin8 pin5 pin9'
+				'pin6 pin3 pin1 pin4 pin2 pin5 pin9'
+				'pin6 pin3 pin1 pin0 pin2 pin5 pin9'
+				'pin6 pin3 pin1 pin0 pin2 pin5 pin9'
 		}
 		.pin-container-container {
 			margin-top: 20;
@@ -102,74 +102,85 @@
 </head>
 <body class="input">
 
-<div id="main">
-	<h2 id="test">Debug</h2>
-	<p>
 	<div class="navbar">
 	  <div class="dropdown">
-	    <button class="dropbtn" onClick="fileClick()">File</button>
+	    <button class="dropbtn" onClick="menuFile()">File</button>
 	    <div class="dropdown-content" id="fileDropdown">
-	      <a href="#">Open...</a>
+	      <a href="#" onClick="todayGame()">Today's Game</a>
+	      <a href="#" onClick="nextGame()">Next Game</a>
+	      <a href="#" onClick="randomGame()">Random Game</a>
+	      <a href="#" onClick="openGame()">Open</a>
+	      <a href="#" onClick="downloadGame()">Save</a>
+	      <a href="#" onClick="changeDictionary()">Change Dictionary</a>
+	      <a href="#" onClick="resetDictionary()">Reset Dictionary</a>
 	    </div>
 	  </div>
 	  <div class="dropdown">
-	    <button class="dropbtn" onClick="settingsClick()">Settings</button>
+	    <button class="dropbtn" onClick="menuSettings()">Settings</button>
 	    <div class="dropdown-content" id="settingsDropdown">
-	      <a href="#">Open 2...</a>
-	      <a href="#">Open 3...</a>
+	      <a href="#" id="autoAdvance" onClick="toggleMenuPref('autoAdvance')"><span id="autoAdvanceCheck">&#x2713</span> Auto Advance After Each Frame</a>
+	      <a href="#" id="checkWords" onClick="toggleMenuPref('checkWords')"><span id="checkWordsCheck">&#x2713</span> Check Words Against Dictionary</a>
+	      <a href="#" id="hideStrke" onClick="toggleMenuPref('hideStrike')"><span id="hideStrikeCheck">&#x2713</span> Hide Strike Words</a>
+	      <a href="#" id="currentFrameScoring" onClick="toggleMenuPref('currentFrameScoring')"><span id="currentFrameScoringCheck">&#x2713</span> Use Current Frame Scoring System</a>
+	      <a href="#" id="allowGutterBalls" onClick="toggleMenuPref('allowGutterBalls')"><span id="allowGutterBallsCheck">&#x2713</span> Allow Gutter Balls</a>
+	      <a href="#" onClick="resetMenuPrefs()">Reset Preferences</a>
 	    </div>
 	  </div>
 	  <div class="dropdown">
-	    <button class="dropbtn" onClick="helpClick()">Help</button>
+	    <button class="dropbtn" onClick="menuHelp()">Help</button>
 	    <div class="dropdown-content" id="helpDropdown">
-	      <a href="#">Open 4...</a>
-	      <a href="#">Open 5...</a>
-	      <a href="#">Open 6...</a>
-	      <a href="#">Open 7...</a>
+	      <a href="#" onClick="gotoHelp('helpOverview')">Game Overview</a>
+	      <a href="#" onClick="gotoHelp('helpThrow')">Valid Throws</a>
+	      <a href="#" onClick="gotoHelp('helpWords')">Valid Words</a>
+	      <a href="#" onClick="gotoHelp('helpScore')">The Score Area</a>
+	      <a href="#" onClick="gotoHelp('helpGeeks')">Notes for Geeks</a>
+	      <a href="#" onClick="gotoHelp('helpAbout')">About</a>
+	      <a href="#" onClick="gotoHelp('main')">Return to Game</a>
 	    </div>
 	  </div>
 	</div>
+<div id="main">
 	<div class="pin-container-container"><div class="pin-container">
-	  <div class="pin0"><canvas id="pin0" width="85" height="212" onClick="pinClick(0)"></canvas></div>
-	  <div class="pin1"><canvas id="pin1" width="85" height="85" onClick="pinClick(1)"></canvas></div>
-	  <div class="pin2"><canvas id="pin2" width="85" height="85" onClick="pinClick(2)"></canvas></div>
+	  <div class="pin0"><canvas id="pin0" width="85" height="85" onClick="pinClick(0)"></canvas></div>
+	  <div class="pin1"><canvas id="pin1" width="85" height="127" onClick="pinClick(1)"></canvas></div>
+	  <div class="pin2"><canvas id="pin2" width="85" height="127" onClick="pinClick(2)"></canvas></div>
 	  <div class="pin3"><canvas id="pin3" width="85" height="212" onClick="pinClick(3)"></canvas></div>
-	  <div class="pin4"><canvas id="pin4" width="85" height="171" onClick="pinClick(4)"></canvas></div>
-	  <div class="pin5"><canvas id="pin5" width="85" height="127" onClick="pinClick(5)"></canvas></div>
-	  <div class="pin6"><canvas id="pin6" width="85" height="127" onClick="pinClick(6)"></canvas></div>
-	  <div class="pin7"><canvas id="pin7" width="85" height="127" onClick="pinClick(7)"></canvas></div>
-	  <div class="pin8"><canvas id="pin8" width="85" height="127" onClick="pinClick(8)"></canvas></div>
-	  <div class="pin9"><canvas id="pin9" width="85" height="85" onClick="pinClick(9)"></canvas></div>
+	  <div class="pin4"><canvas id="pin4" width="85" height="127" onClick="pinClick(4)"></canvas></div>
+	  <div class="pin5"><canvas id="pin5" width="85" height="212" onClick="pinClick(5)"></canvas></div>
+	  <div class="pin6"><canvas id="pin6" width="85" height="212" onClick="pinClick(6)"></canvas></div>
+	  <div class="pin7"><canvas id="pin7" width="85" height="85" onClick="pinClick(7)"></canvas></div>
+	  <div class="pin8"><canvas id="pin8" width="85" height="85" onClick="pinClick(8)"></canvas></div>
+	  <div class="pin9"><canvas id="pin9" width="85" height="212" onClick="pinClick(9)"></canvas></div>
 	</div></div>
 	<p>
 	<table>
 	  <tr>
 	    <td>
-		<button id="seed"/>
+		<button id="seed" onClick="nextGame()"/>
 	    </td>
 	    <td/>
 	    <td>
-		<span>Strike here!</span>
+		<span id="strike"></span>
 	    </td>
 	  </tr>
 	  <tr>
 	    <td>
-		<button id="nextFrame"/>Next Frame
+		<button id="nextFrame" onClick="nextFrame()"/>Next Frame
 	    </td>
 	    <td/>
 	    <td>
-		<span>Bowling Ball Here!</span>
+		<span id="bowlingBall">Bowling Ball Here!</span>
 	    </td>
 	  </tr>
 	  <tr>
 	    <td>
-		<button id="checkWords"/>CHECK
+		<button id="btnCheckWords" onClick="toggleMenuPref('checkWords')"/>&#x2713;
 	    </td>
 	    <td>
-		<input id="word" onKeydown="update(true)" onChange="update(true)"></input>
+		<input id="word"></input>
 	    </td>
 	    <td>
-		<button id="bowl"/>Bowl
+		<button id="bowl" onClick="bowl()"/>Bowl
 	    </td>
 	  </tr>
 	  <tr>
@@ -186,7 +197,7 @@
 		  <td><div class="frameScore"><canvas id="scoreArea8" onClick="frameClick(8)"></canvas></div></td>
 		  <td><div class="frameScore"><canvas id="scoreArea9" onClick="frameClick(9)"></canvas></div></td>
 		  <td><div class="frameScore"><canvas id="scoreArea10" onClick="frameClick(10)"></canvas></div></td>
-		  <td><div class="frameScore"><canvas id="scoreAreaTotal"></canvas></div></td>
+		  <td><div class="frameScore"><canvas id="totalScoreArea"></canvas></div></td>
 		</tr></table></div>
 	    </td>
 	  </tr>
@@ -194,34 +205,34 @@
 	    <td>
 		<table>
 		  <tr>
-		    <td><span id="word00"/>00</td>
+		    <td><span id="word0"/>00</td>
 		  </tr>
 		  <tr>
-		    <td><span id="word01"/>01</td>
+		    <td><span id="word1"/>01</td>
 		  </tr>
 		  <tr>
-		    <td><span id="word02"/>02</td>
+		    <td><span id="word2"/>02</td>
 		  </tr>
 		  <tr>
-		    <td><span id="word03"/>03</td>
+		    <td><span id="word3"/>03</td>
 		  </tr>
 		  <tr>
-		    <td><span id="word04"/>04</td>
+		    <td><span id="word4"/>04</td>
 		  </tr>
 		  <tr>
-		    <td><span id="word05"/>05</td>
+		    <td><span id="word5"/>05</td>
 		  </tr>
 		  <tr>
-		    <td><span id="word06"/>06</td>
+		    <td><span id="word6"/>06</td>
 		  </tr>
 		  <tr>
-		    <td><span id="word07"/>07</td>
+		    <td><span id="word7"/>07</td>
 		  </tr>
 		  <tr>
-		    <td><span id="word08"/>08</td>
+		    <td><span id="word8"/>08</td>
 		  </tr>
 		  <tr>
-		    <td><span id="word09"/>09</td>
+		    <td><span id="word9"/>09</td>
 		  </tr>
 		  <tr>
 		    <td><span id="word10"/>10</td>
@@ -270,35 +281,426 @@
 	<p>
 </div>
 
+<div id="helpOverview" style="visibility:hidden">
+<center>
+<canvas id="bb0" width="85px" height="85px"></canvas><p>
+<H1>Game Overview</H1>
+</center>
+As in regular bowling, each frame you have two tries to knock down as many pins as possible.<P><P>
+
+You knock down pins by typing a word and clicking &quot;Bowl&quot; (or hitting Enter).<P><P>
+
+By default, you must click &quot;Next Frame&quot; after each frame.<P>
+<CENTER>*&nbsp;*&nbsp;*</CENTER><P><P>
+The button with the hexadecimal string &quot;<span id="seedSpan"></span>&quot; indicates that this value was used as the random seed to generate the current game.
+Clicking on this button will allow you to start a new game.<P><P>
+
+By specifying the same seed as someone else, you can play the same sets of letters, which reduces The element of luck when comparing scores.<P><P>
+
+<center><table><tr>
+<td><button onClick="gotoHelp('main')">Return to game</button></td>
+<td><button onClick="gotoHelp('helpThrow')">&gt;&gt;</button></td>
+</tr></table></center>
+</div>
+
+<div id="helpThrow" style="visibility:hidden">
+<center>
+<canvas id="bb1" width="85px" height="85px"></canvas><p>
+<H1>Valid Throws</H1>
+</center>
+In order for a throw to be valid, the following must be true (which will turn the corresponding elements of the UI green):<UL>
+
+<LI>There must be a unique character representing the bowling ball.
+The bowling ball must occur one or more times in the word.
+The bowling ball must not match any of the bowling pins.
+If there is no bowling ball, the text &quot;N/A&quot; will appear in pink above the &quot;Bowl&quot; button.
+If there is more than one bowling ball, the letters will appear in red above the &quot;Bowl&quot; button.<P>
+
+<LI>With the exception of the bowling ball letter, a letter may not appear in the word more times than it appears on the bowling pins.  If it does, the corresponding bowling pins will be turned red.<P>
+
+<LI>The bowling pins which are knocked down must be adjacent (diagonally) and must include at least one of the seven front pins.
+Otherwise, any pins which would have been colored green will be colored pink.
+</UL>
+One pin is knocked down for each character in the word which is not the bowling ball.
+When a letter is used fewer times than there are corresponding pins, you may change which pins are knocked down by clicking on them.
+<center><table><tr>
+<td><button onClick="gotoHelp('helpOverview')">&lt;&lt;</button></td>
+<td><button onClick="gotoHelp('main')">Return to game</button></td>
+<td><button onClick="gotoHelp('helpWords')">&gt;&gt;</button></td>
+</tr></table></center>
+</div>
+
+<div id="helpWords" style="visibility:hidden">
+<center>
+<canvas id="bb2" width="85px" height="85px"></canvas><p>
+<H1>Valid Words</H1>
+</center>
+The default dictionary is the SOWPODS dictionary, which is the one that was formerly used in competition Scrabble.
+You may provide a custom dictionary, provided that the words are uppercase and sorted using Java's default collation.
+It should not be necessary that the words be English. (Let me know if you have trouble....)<P><P>
+
+The set of pins for each frame are chosen such that at least one word from the dictionary will knock down all ten.
+Because it must contain all ten pin letters and at least one bowling ball, the required word will have at least eleven letters.<P><P>
+
+Be default, the check mark on the left turns green when the current word is in the dictionary.
+If a word is entered that is not in the dictionary, you are given the option of using it anyway.<P><P>
+<center><table><tr>
+<td><button onClick="gotoHelp('helpThrow')">&lt;&lt;</button></td>
+<td><button onClick="gotoHelp('main')">Return to game</button></td>
+<td><button onClick="gotoHelp('helpScore')">&gt;&gt;</button></td>
+</tr></table></center>
+</div>
+
+<div id="helpScore" style="visibility:hidden">
+<center>
+<canvas id="bb3" width="85px" height="85px"></canvas><p>
+<H1>The Score Area</H1>
+</center>
+Although traditional scoring is supported, by default Letter Bowling uses &quot;Current Frame Scoring&quot;.
+This form of scoring allows scores to be calculated as soon as a frame is completed.<P><P>
+
+Points are scored as follows:
+<UL>
+<LI>Strike: 30 points
+<LI>Spare: 10 points plus the pinfall of the first roll
+<LI>Open: total pinfall</UL>
+Note that Current Frame Scoring does not require an eleventh frame, so it will not appear.<P>
+<CENTER>*&nbsp;*&nbsp;*</CENTER><P><P>
+
+Clicking on a frame in the scoring area which has already been completed will cause the pins to be restored to that point in the game, for viewing only.<P><P>
+
+To continue play, click on the current frame in the score area or click the &quot;Next Frame&quot; button.<P><P>
+<center><table><tr>
+<td><button onClick="gotoHelp('helpWords')">&lt;&lt;</button></td>
+<td><button onClick="gotoHelp('main')">Return to game</button></td>
+<td><button onClick="gotoHelp('helpGeeks')">&gt;&gt;</button></td>
+</tr></table></center>
+</div>
+
+<div id="helpGeeks" style="visibility:hidden">
+<center>
+<canvas id="bb4" width="85px" height="85px"></canvas><p>
+<H1>Notes for Geeks</H1>
+</center>
+Settings and the current game are remembered between sessions using localStorage.<P>
+Games can also be saved explicitly.<P>&nbsp<P>
+
+The seed for the next game is generated from the current seed, so if you play a series of games starting with a given seed, all of the games will be paired.<P><P>
+<center><table><tr>
+<td><button onClick="gotoHelp('helpScore')">&lt;&lt;</button></td>
+<td><button onClick="gotoHelp('main')">Return to game</button></td>
+</tr></table></center>
+</div>
+
+<div id="helpAbout" style="visibility:hidden">
+<center>
+<canvas id="bb5" width="85px" height="85px"></canvas><p>
+Letter Bowling<p>
+by William Fraser<p>
+Version 20231115<p>&nbsp<p>
+I'd love to hear feedback from anyone who uses this game!<p>
+You can contact me at<p>
+bfraser@alumni.ucsd.edu<p>
+</center>
+<center><table><tr>
+<td><button onClick="gotoHelp('main')">Return to game</button></td>
+</tr></table></center>
+</div>
+
+<input id="openFile" type="file" style="visibility:hidden" onChange="readGame(event)" />
+<input id="openDictionary" type="file" style="visibility:hidden" onChange="readDictionary(event)" />
+
 <script type="text/javascript">
-	var dictionary=[];
-	var answer=["ABCDEFGHIJ"];
+	let dictionary=[];
+	let pinSets=["ABCDEFGHIJ"];
+	let strikeWords=[];
+	let strikeBalls=[];
 
-	var displayFrame=0;
+	let displayFrame=0;
 
-	const ICON_WIDTH=84;
-	const ICON_HEIGHT=84;
+	let playerName="Player";
 
-	const x=[0,2,4,6,1,3,5,2,4,3];
-	const y=[0,0,0,0,1,1,1,2,2,3];
-	const yy=[0,0,0,0,42,42,42,0,0,0];
+	let ICON_WIDTH=84;
+	let ICON_HEIGHT=84;
+
+	let SCORE_WIDTH=40;
+	let SCORE_HEIGHT=40;
+
+	let x=[3,2,4,1,3,5,0,2,4,6];
+	let y=[3,2,2,1,1,1,0,0,0,0];
+	let yy=[0,0,0,42,42,42,0,0,0,0];
+
+	let topScores=[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
+	let bottomScores=[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
+
+	let paused=0;
+	let downShape=0;
+	let green=0;
+	let pink=0;
+	let red=0;
+
+	let rng;
+	let nextSeed;
+
+	let savePaused;
+	let saveDownShape;
+
+	let connectedMask=[];
+
+	function getSanitizedWord() {
+		let word = document.getElementById("word").value.toUpperCase();
+		var output=[];
+		for(var i=0;i<word.length;i++)
+			if(word[i]>' ')
+				output.push(word[i]);
+		return output.join("");
+	}
+
+	function isInDictionary(word) {
+		var start=0;
+		var end=dictionary.length-1;
+		while(start <= end) {
+			let middle = Math.floor((start + end) / 2);
+			if(dictionary[middle] === word)
+				return true;
+			else if(dictionary[middle] < word)
+				start = middle+1;
+			else
+				end = middle-1;
+		}
+		return false;
+	}
 
 	function update(newWord) {
+		let word = getSanitizedWord();
+		if(getPref("checkWords") && word.length>0) {
+			document.getElementById("btnCheckWords").style.color="White";
+			if(isInDictionary(word)) {
+				document.getElementById("btnCheckWords").style.background="Green";
+			} else {
+				document.getElementById("btnCheckWords").style.background="Red";
+			}
+		} else {
+			document.getElementById("btnCheckWords").style.background=null;
+			document.getElementById("btnCheckWords").style.color=null;
+		}
+		let shouldBeGreen = 0;
+		let shouldBeRed = 0;
+		let bowl = "";
+		for(var w=0;w<word.length;w++) {
+			let c=word[w];
+			if(pinSets[displayFrame].indexOf(c)<0) {
+				if(bowl.indexOf(c)<0) {
+					bowl = bowl+c;
+					continue;
+				}
+			}
+			let bestIndex=-1;
+			let bestScore=0;
+			for(var i=pinSets[displayFrame].indexOf(c);i>=0;i=pinSets[displayFrame].indexOf(c,i+1)) {
+				if(((shouldBeGreen | shouldBeRed)&(1<<i))!=0)
+					continue;
+				var score=1;
+				if((green | pink) & (1<<i))
+					score += 10;
+				if(!(downShape & (1<<i)))
+					score ++;
+				if(score>bestScore) {
+					bestIndex=i;
+					bestScore=score;
+				}
+			}
+			if(bestIndex>=0)
+				shouldBeGreen |= (1<<bestIndex);
+			else {
+				for(var i=pinSets[displayFrame].indexOf(c);i>=0;i=pinSets[displayFrame].indexOf(c,i+1)) {
+					shouldBeGreen &= ~(1<<i);
+					shouldBeRed |= (1<<i);
+				}	
+			}
+		}
+		var shouldBePink = determinePinkness(shouldBeGreen,shouldBeRed);
+		if(shouldBePink!=0 && shouldBeRed==0 && newWord) {
+			let match = shapeToString(shouldBePink);
+			var bestScore = 0;
+			for(var i=0;i<1024;i++) {
+				m = shapeToString(i);
+				if(m!==match)
+					continue;
+				var score=0;
+				if(connectedMask[i])
+					score += 100;
+				score += 10*card(i &~ downShape);
+				score += card(i & shouldBeGreen);
+				if(score>bestScore) {
+					shouldBePink = i;
+					bestScore = score;
+				}
+			}
+			if(connectedMask[shouldBePink]) {
+				shouldBeGreen = shouldBePink;
+				shouldBePink = 0;
+			} else {
+				shouldBeGreen = 0;
+			}
+		}
+		green = shouldBeGreen;
+		pink = shouldBePink;
+		red = shouldBeRed;
+		
 		for(var i=0;i<10;i++) {
 			const canvas = document.getElementById("pin"+i);
 			const context = canvas.getContext("2d");
 			context.font = "20px serif";
-			var outline = "white";
-			drawBowlingPin(context,0,yy[i],answer && answer[displayFrame][i],outline,false);
+			var outline = determineOutlineColor(shouldBePink,shouldBeGreen,shouldBeRed,1<<i);
+			drawBowlingPin(context,0,yy[i],pinSets && pinSets[displayFrame][i],outline,downShape & (1<<i));
 		}
-		for(var i=0;i<10;i++) {
+		if(bowl.length==0) {
+			document.getElementById("bowlingBall").textContent="Bowling Ball: N/A";
+			document.getElementById("bowlingBall").style.color="pink";
+			document.getElementById("bowl").setAttribute("disabled","true");
+		} else if(bowl.length==1) {
+			document.getElementById("bowlingBall").textContent="Bowling Ball: "+bowl;
+			document.getElementById("bowlingBall").style.color="green";
+			if(shouldBePink==0 && shouldBeRed==0 && !paused && (getPref("allowGutterBalls") || shouldBeGreen!=0))
+				enableButton("bowl",true);
+			else
+				enableButton("bowl",false);
+		} else {
+			document.getElementById("bowlingBall").textContent="Bowling Ball: "+bowl;
+			document.getElementById("bowlingBall").style.color="red";
+			document.getElementById("bowl").setAttribute("disabled","true");
+		}
+		var label="";
+		if(word.length==0) {
+			label = label+"No word entered yet<P><P>";
+		} else if(word.length==1 && !getPref("allowGutterBalls")) {
+			label = label+"A word must be at least two letters long<P><P>";
+		} else {
+			let selectedShape = shouldBeGreen | shouldBePink | shouldBeRed;
+			if(document.getElementById("bowl").getAttribute("disabled")) {
+				label = label+"<FONT COLOR=RED>You may not click bowl at this time for the following reason(s)</FONT><P><P>";
+			} else  {
+				label = label+"You may click \"Bowl\" to score this word<P><P>";
+				if(selectedShape==0 && getPref("allowGutterBalls"))
+					label = label+"But it is a gutter ball.<P>";
+			}
+			for(var i=0;i<10;i++) {
+				if((shouldBeRed & (1<<i)) != 0) { 
+					let c = pinSets[displayFrame].charAt(i);
+					if(pinSets[displayFrame].indexOf(c)==i)
+						label = label+"<FONT COLOR=RED>There are more copies of "+c+" in your "+
+						"word than on the pins</FONT><P><P>";
+				}
+			}
+			if(selectedShape==0) {
+				if(!getPref("allowGutterBalls"))
+					label = label+"<FONT COLOR=RED>No bowling pins are selected and gutter balls are not allowed</FONT><P>";
+			} else if((selectedShape & 0x26F)==0)
+				label = label+"<FONT COLOR=RED>At least one of the 7 front pins must be selected</FONT><P>";
+			if(!connectedMask[selectedShape] && (selectedShape & 0x26F)!=0 || (selectedShape==0x180))
+				label = label+"<FONT COLOR=RED>The selected bowling pins must be next to each other</FONT><P>";
+
+			if(bowl.length==0)
+				label = label+"<FONT COLOR=RED>No bowling ball letter is being used</FONT><P>";
+			if(bowl.length>1)
+				label = label+"<FONT COLOR=RED>Too many bowling ball letters are being used ("+bowl+")</FONT><P>";
+		}
+		if(paused)
+			label = label+"You are analyzing a previously played frame<P>"+"Click \"Next Frame\" to move on to the next set of pins";
+		document.getElementById("messages").innerHTML=label;
+
+		updateStrikeLabel();
+
+		let limit = (getPref);
+		for(var i=0;i<11;i++) {
 			const canvas = document.getElementById("scoreArea"+i);
 			const context = canvas.getContext("2d");
-			drawText(context,20,20,""+i);
+			drawScoreArea(context, i);
+		}
+		const canvas = document.getElementById("totalScoreArea");
+		const context = canvas.getContext("2d");
+		drawTotalScore(context);
+	}
+
+	function shapeToString(mask) {
+		var list = [];
+		for(var i=0;i<10;i++) {
+			if((mask & (1<<i))!=0)
+				list.push(pinSets[displayFrame][i]);
+		}
+		list.sort();
+		return list.join("");
+	}
+ 
+	function determinePinkness(green, red) {
+		if(red!=0)
+			return green;
+		if(connectedMask[green])
+			return 0;
+		return green;
+	}
+
+	function card(x) {
+		x=((x&0xAAAAAAAA)>>1) + (x&0x55555555);
+		x=((x&0xCCCCCCCC)>>2) + (x&0x33333333);
+		x=((x&0xF0F0F0F0)>>4) + (x&0x0F0F0F0F);
+		x=((x&0xFF00FF00)>>8) + (x&0x00FF00FF);
+		x=((x&0xFFFF0000)>>16) + (x&0x0000FFFF);
+		return x;
+	}
+
+	function determineOutlineColor(p,g,r,i) {
+		if(p&i)
+			return "pink";
+		if(g&i)
+			return "green";
+		if(r&i)
+			return "red";
+		return "white";
+	}
+
+	function drawTotalScore(context) {
+		const saveFill = context.fillStyle;
+		context.fillStyle = "white";
+		context.fillRect(0,0,SCORE_WIDTH,SCORE_HEIGHT);
+		context.fillStyle = saveFill;
+		context.font = "15px Arial";
+		drawText(context,SCORE_WIDTH/2,SCORE_HEIGHT/2,""+calculateTotalScore());
+	}
+
+	function drawScoreArea(context, frame) {
+		if(frame==10 && getPref("currentFrameScoring"))
+			return;
+		const saveFill = context.fillStyle;
+		context.fillStyle = "white";
+		context.fillRect(0,0,SCORE_WIDTH,SCORE_HEIGHT);
+		context.fillStyle = saveFill;
+		context.strokeRect(0,0,SCORE_WIDTH-1,SCORE_HEIGHT-1);
+		if(frame==displayFrame) {
+			context.strokeRect(1,1,SCORE_WIDTH-3,SCORE_HEIGHT-3);
+			context.strokeRect(2,2,SCORE_WIDTH-5,SCORE_HEIGHT-5);
+		}
+		context.beginPath();
+		context.moveTo(1,SCORE_HEIGHT-1);
+		context.lineTo(SCORE_WIDTH-1,1);
+		context.stroke();
+		if(topScores[frame]==10) {
+			drawText(context,SCORE_WIDTH/4,SCORE_HEIGHT/4,"X");
+			if(bottomScores[frame]==10)
+				drawText(context,3*SCORE_WIDTH/4,3*SCORE_HEIGHT/4,"X");
+			else if(bottomScores[frame]>=0)
+				drawText(context,3*SCORE_WIDTH/4,3*SCORE_HEIGHT/4,""+bottomScores[frame]);
+		} else if(topScores[frame]>=0) {
+			drawText(context,SCORE_WIDTH/4,SCORE_HEIGHT/4,""+topScores[frame]);
+			if(bottomScores[frame]+topScores[frame]==10)
+				drawText(context,3*SCORE_WIDTH/4,3*SCORE_HEIGHT/4,"/");
+			else if(bottomScores[frame]>=0)
+				drawText(context,3*SCORE_WIDTH/4,3*SCORE_HEIGHT/4,""+bottomScores[frame]);
 		}
 	}
 
-	const pinPoints = [[0.50,0.00],
+	let pinPoints = [[0.50,0.00],
 			[0.52,0.00], [0.60,0.08], [0.60,0.10],
 			[0.60,0.12], [0.58,0.28], [0.58,0.30],
 			[0.58,0.32], [0.70,0.55], [0.70,0.60],
@@ -392,45 +794,199 @@
 	}
 
 	function loadDictionary(name) {
-		if(dictionary.length==0 || localStorage.dictionaryName !== name) {
-			if(name) {
-				console.log("User dictionaries not supported!");
-			} else {
-				dictionary=defaultDictionary;
-				console.log(dictionary.length);
-				console.log(" entries read");
-			}
-			localStorage.dictionaryName = name;
-		}
+		console.log("Loading dictionary: "+name);
+		localStorage.saveGame=null;
+		document.getElementById("openDictionary").click();
 	}
 
 	parseGame = function(gameText) {
-		loadDictionary();
-		// look at old code!
+		let game = gameText.split("\n");
+		let line = game[0].split(" ");
+		let seed = parseInt(line[0],16);
+		playerName = game[1];
+		dictionaryFile=((game[2].length==0) ? null : game[2]);
+		startGame(seed,parseInt(line[1]));
+		for(var i=3;i<game.length;i++) {
+			line = game[i].split(" ");
+			if(line.length==1)
+				continue;
+			if(paused) {
+				displayFrame = frame;
+				setPaused(false);
+			}
+			downShape = parseInt(line[2]);
+			if(updateFrame(line[0], parseInt(line[3]))) {
+				strikeFrame = frame;
+				endFrame();
+				downShape=0;
+				if(!getPref("autoAdvance"))
+					timeTravel(strikeFrame);
+			}
+		}
+		clearWordEntry();
 		update(true);
 	}
-	newGame = function(seed) {
-		// document.getElementById("test").textContent=MD5(getDateString());
-		document.getElementById("seed").textContent=seed.toString(16).padStart(8,'0');;
+
+	startGame = function(seed, startTime) {
+		localStorage.game="";
+		paused=false;
+		frame=0;
+		displayFrame=0;
+		strikeFrame=-1;
+		if(!seed) {
+			if(nextSeed)
+				seed=nextSeed;
+			else
+				seed=todaySeed();
+		}
+		if(!startTime)
+			startTime=Date.now();
+		appendGame(seed.toString(16).padStart(8,'0')+" "+startTime);
+		appendGame(playerName);
+		appendGame(dictionaryFile==null ? "" : dictionaryFile);
+		appendGame("");
+		updateSeedButton(seed);
 		rng = mulberry32(seed);
-		loadDictionary();
-		// choose words
-		// initialize stuff (like frame)
-		// create localStorage.game
+		for(var f=0;f<12;f++) {
+			getPinSet(f);
+			topScores[f]=-1;
+			bottomScores[f]=-1;
+		}
+		downShape = 0;
+		green = 0;;
+		pink = 0;;
+		red = 0;;
+		clearWords();
+		nextSeed = rng();
+		clearWordEntry();
 		update(true);
 	}
+
+	function clearWords() {
+		for(var i=0;i<22;i++) {
+			document.getElementById("word"+i).textContent="";
+		}
+	}
+
+	function clearWordEntry() {
+		document.getElementById("word").value="";
+		document.getElementById("word").focus();
+		
+	}
+
+	function updateSeedButton(seed) {
+		seed = seed.toString(16).padStart(8,'0');
+		document.getElementById("seed").textContent=seed;
+		document.getElementById("seedSpan").textContent=seed;
+	}
+
+	function generateValidStrikes() {
+		validStrikes = [];
+		for(var w=0;w<dictionary.length;w++) {
+			const word = dictionary[w];
+			if(word.length<=10)
+				continue;
+			for(var i=0;i<word.length;i++) {
+				const ch = word[i];
+				if(ch<=' ')
+					continue;
+				var countChar=0;
+				for(var j=0;j<word.length;j++) {
+					if(word[j]==ch)
+						countChar++;
+				}
+				if(countChar==word.length-10) {
+					validStrikes.push(word);
+					break;
+				}
+			}
+		}
+		if(validStrikes.length==0) {
+			console.log("No valid strikes!");
+		} else {
+			//console.log(validStrikes.length+" valid strikes!");
+		}
+	}
+
+	function getPinSet(index) {
+		for(var i=0;i<index;i++)
+			rng();
+		var count=0;
+		if(validStrikes.length==0) {
+			if(index==0)
+				console.log("There are no valid strikes in the current dictionary!");
+			pinSets[index]="";
+			strikeWords[index]="";
+			strikeBalls[index]="";
+			return;
+		}
+//const k = rng();
+		const word = validStrikes[rng()%validStrikes.length];
+		for(var i=0;i<word.length;i++) {
+			const ch = word[i];
+			if(ch<=' ')
+				continue;
+			var countChar=0;
+			for(var j=0;j<word.length;j++) {
+				if(word[j]==ch)
+					countChar++;
+			}
+			if(countChar==word.length-10) {
+				if((rng()%(++count))==0) {
+					pinSets[index] = strip(word,ch);
+					strikeWords[index] = word;
+					strikeBalls[index] = ""+ch;
+				}
+			}
+
+		}
+		if(count==0) {
+			console.log("Something went wrong: "+word);
+			pinSets[index]="";
+			strikeWords[index]="";
+			strikeBalls[index]="";
+		}
+	}
+
+	function strip(word,char) {
+		var output=[];
+		for(var i=0;i<word.length;i++)
+			if(word[i]!=char && word[i]>' ')
+				output.push(word[i]);
+		if(output.length!=10)
+			console.out(word+" should have 10 valid characters, other than "+char);
+		for(var i=output.length-1;i>0;i--) {
+			const j=rng()%(i+1);
+			const swap=output[j];
+			output[j]=output[i];
+			output[i]=swap;
+		}
+		return output.join("");
+	}
+
+	function appendGame(line) {
+		console.log(line);
+		localStorage.game=localStorage.game+line+"\n";
+	}
+
 	function getDateString() {
 		const date = new Date();
 		return date.getFullYear()+"-"+((date.getMonth()+1+"").padStart(2,"0"))+"-"+((date.getDate()+"").padStart(2,"0"));
-		// return date.getFullYear()+"-"+(("3").padStart(2,'0'))+"-"+(("7").padStart(2,"0"));
 	}
-	function makeSeed() {
+
+	function todaySeed() {
+		return parseInt(MD5(getDateString()).slice(-8),16);
+	}
+
+	function randomSeed() {
 		const bytes = new Uint8Array(4);
 		window.crypto.getRandomValues(bytes);
 		return bytes[0]+(bytes[1]+(bytes[2]+bytes[3]*256)*256)*256;
 	}
+
 	function mulberry32(a) {
 		return function() {
+//console.log(a.toString(16));
 			var t = a += 0x6D2B79F5;
 //console.log(t);
 			t = Math.imul(t ^ t >>> 15, t | 1);
@@ -438,10 +994,11 @@
 			t ^= t + Math.imul(t ^ t >>> 7, t | 61);
 //console.log(t);
 			t = ((t ^ t >>> 14) >>> 0);
-//console.log(t);
+//console.log(t.toString(16));
 			return t;
 		}
 	}
+
 	// https://stackoverflow.com/questions/14733374/how-to-generate-an-md5-file-hash-in-javascript-node-js#33486055
 	var MD5 = function(d) {
 		var r = M(V(Y(X(d),8*d.length)));
@@ -495,18 +1052,57 @@
 		return d<<_|d>>>32-_
 	}
 
+	function generateConnectedMask() {
+		for(var i=0;i<1024;i++)
+			connectedMask.push(isConnected(i));
+	}
+
+	function isConnected(mask) {
+		if((mask & 0x26F)==0)
+			return false;
+		for(var i=0;i<10;i++) {
+			if(mask & (1<<i))
+				return removePiece(mask,i)==0;
+		}
+		console.log("No set bits!");
+	}
+
+	function removePiece(mask, location) {
+		if((mask & (1<<location))==0)
+			return mask;
+		mask -= (1<<location);
+		for(var i=0;i<10;i++) {
+			if(i==location)
+				continue;
+			var dx = x[i]-x[location];
+			var dy = y[i]-y[location];
+			if(dy>=-2 && dy<=2 && dx>=-1 && dx<=1)
+				mask = removePiece(mask, i);
+		}
+		return mask;
+	}
+
 	window.onload = function() {
-		function show(el) {
-			el.setAttribute("style", "");
+		for(var i=0;i<6;i++) {
+			const canvas = document.getElementById("bb"+i);
+			const context = canvas.getContext("2d");
+			drawBowlingPin(context,0,0,"","white",false);
 		}
-		function hide(el) {
-			el.setAttribute("style", "display: none;");
-		}
-		if(localStorage.game) {
-			parseGame(localStorage.game);
-		} else {
-			newGame(makeSeed());
-		}
+		applyDefaultMenuPrefs();
+		gotoHelp("main");
+
+		let inputElem = document.querySelector('input');
+		inputElem.addEventListener('input', () => {
+			update(true);
+		});
+		document.getElementById("word").addEventListener("keypress", function(event) {
+			if(event.key === "Enter") {
+				event.preventDefault();
+				document.getElementById("bowl").click();
+			}
+		});
+
+		generateConnectedMask();
 
 		// For later:
 		// Loading a dictionary automatically starts a new game, which MUST BE SAVED to localstorage, 
@@ -515,35 +1111,419 @@
 		//	If the current dictionary matches the desired dictionary, don't do anything
 		//	If the desired dictionary is the default, reaload it.
 		//	Otherwise, prompt the user to load it by name.....
+		if(false && localStorage.game) {
+			game = localStorage.game.split("\n");
+			if(game[2].length==0) {
+				console.log("default dictionary with game: "+defaultDictionary.length);
+				dictionary = defaultDictionary;
+				console.log("default dictionary with game: "+dictionary.length);
+				generateValidStrikes();
+				dictionaryFile=null;
+				parseGame(localStorage.game);
+			} else {
+				console.log("custom dictionary with game");
+				loadDictionary(game[2]);
+			}
+		} else {
+			console.log("default dictionary without game");
+			dictionary = defaultDictionary;
+			generateValidStrikes();
+			dictionaryFile=null;
+			startGame(todaySeed(),null);
+		}
 	}
 
-	function resetClick() {
-	  document.getElementById("fileDropdown").classList.remove("show");
-	  document.getElementById("settingsDropdown").classList.remove("show");
-	  document.getElementById("helpDropdown").classList.remove("show");
+	function applyDefaultMenuPrefs() {
+		applyDefaultMenuPref("autoAdvance",false);
+		applyDefaultMenuPref("checkWords",true);
+		applyDefaultMenuPref("hideStrike",false);
+		applyDefaultMenuPref("currentFrameScoring",true);
+		applyDefaultMenuPref("allowGutterBalls",true);
 	}
 
-	function fileClick() {
-	  resetClick();
-	  document.getElementById("fileDropdown").classList.toggle("show");
+	function resetMenuPrefs() {
+		resetClick(0);
+		resetMenuPref("autoAdvance",false);
+		resetMenuPref("checkWords",true);
+		resetMenuPref("hideStrike",false);
+		resetMenuPref("currentFrameScoring",true);
+		resetMenuPref("allowGutterBalls",true);
+		update(false);
 	}
 
-	function settingsClick() {
-	  resetClick();
-	  document.getElementById("settingsDropdown").classList.toggle("show");
+	function resetMenuPref(key, value) {
+		localStorage[key] = value;
+		document.getElementById(key+"Check").style.visibility=(getPref(key)?"visible":"hidden");
 	}
 
-	function helpClick() {
-	  resetClick();
-	  document.getElementById("helpDropdown").classList.toggle("show");
+	function toggleMenuPref(key) {
+		resetClick(0);
+		localStorage[key] = !getPref(key);
+		document.getElementById(key+"Check").style.visibility=(getPref(key)?"visible":"hidden");
+		update(false);
+	}
+
+	function applyDefaultMenuPref(key, defaultValue) {
+		localStorage[key] = localStorage[key] || defaultValue;
+		document.getElementById(key+"Check").style.visibility=(getPref(key)?"visible":"hidden");
+	}
+
+	function getPref(key) {
+		return localStorage[key] === "true";
+	}
+
+	function bowl() {
+		resetClick(0);
+		let word = getSanitizedWord();
+		if(!isInDictionary(word)) {
+			if(!window.confirm("That word is not in my dictionary.  Use anyway?"))
+				return;
+			word = "*_"+word+"_*";
+		}
+		count = card(green | downShape);
+		if(updateFrame(word, count)) {
+			strikeFrame=frame;
+			endFrame();
+			if(getPref("autoAdvance")) {
+				enableButton("nextFrame",true);
+				downShape=0;
+			} else {
+				timeTravel(strikeFrame);
+			}
+		}
+		clearWordEntry();
+		update(false);
+	}
+
+	function updateFrame(word,count) {
+		downShape = green;
+		appendGame(word+" "+frame+" "+downShape+" "+count);
+		let topScore = topScores[frame];
+		if(topScore>=0) {
+			document.getElementById("word"+(frame*2+1)).textContent=word;
+			bottomScores[frame]=(count-topScore);
+			return true;
+		}
+		document.getElementById("word"+(frame*2)).textContent=word;
+		if(frame==11) {
+			bottomScores[frame-1]=topScore;
+			return true;
+		} else {
+			topScores[frame]= count;
+			if(frame<10 && count==10) {
+				document.getElementById("word"+(frame*2+1)).textContent="-----";
+				appendGame("-----");
+			}
+		}
+		return (count==10) || (frame==10 && topScores[frame-1]!=10);
+	}
+
+	function calculateTotalScore() {
+		let totalScore=0;
+		for(var f=0;f<12;f++) {
+			let topScore = topScores[f];
+			if(topScore<0)
+				topScore=0;
+			let bottomScore = bottomScores[f];
+			if(bottomScore<0)
+				bottomScore=0;
+			if(getPref("currentFrameScoring")) {
+				if(f<10) {
+					if(topScore==10)
+						totalScore += 30;
+					else if(bottomScore + topScore==10)
+						totalScore += 10+topScore;
+					else
+						totalScore += topScore+bottomScore;
+				}
+			} else {
+				if(f<10) {
+					totalScore += topScore;
+					totalScore += bottomScore;
+				}
+				if(f>0 && topScores[f-1]==10) {
+					totalScore += topScore;
+					totalScore += bottomScore;
+					if((f>1)  && topScores[f-2]==10)
+						totalScore += topScore;
+				} else if(f>0 && topScores[f-1] + bottomScores[f-1]==10) {
+					totalScore += topScore;
+				}
+			}
+		}
+		return totalScore;
+	}
+
+	function endFrame() {
+		if(frame>=10) {
+			if(frame==10 && topScores[frame-1]==10 && topScores[frame]==10) {
+				frame=11;
+				displayFrame=frame;
+				return;
+			}
+			frame=11;
+			displayFrame=frame;
+			update();
+			checkEndGame();
+			return;
+		}
+		frame++;
+		displayFrame=frame;
+		if(frame==10) {
+			if(!getPref("currentFrameScoring")) {
+				if(topScores[frame-1]==10 || topScores[frame-1]+bottomScores[frame-1]==10)
+					return;
+			}
+			update();
+			checkEndGame();
+			return;
+		}
+	}
+
+	function checkEndGame() {
+		if(window.confirm("The game is over.  Do you wish to play again?"))
+			startGame(null,null);
+		else
+			setPaused(true);
+	}
+
+	function enableButton(id, value) {
+		if(value)
+			document.getElementById(id).removeAttribute("disabled");
+		else
+			document.getElementById(id).setAttribute("disabled","true");
+	}
+
+	function todayGame() {
+		resetClick(0);
+		gotoHelp("main");
+		reply = window.confirm("Do you wish to start a new game with today's random seed?");
+		if(reply)
+			startGame(todaySeed(),null);
+	}
+
+	function nextGame() {
+		resetClick(0);
+		gotoHelp("main");
+		reply = window.prompt("Do you wish to start the next game?",nextSeed.toString(16));
+		if(reply)
+			startGame(parseInt(reply,16),null);
+	}
+
+	function randomGame() {
+		resetClick(0);
+		gotoHelp("main");
+		reply = window.prompt("Do you wish to start the next game?",randomSeed().toString(16));
+		if(reply)
+			startGame(parseInt(reply,16),null);
+	}
+
+	function openGame() {
+		resetClick(0);
+		gotoHelp("main");
+		document.getElementById("openFile").click();
+	}
+
+	function readGame(e) {
+		var file = e.target.files[0];
+		if (!file)
+			return;
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			parseGame(e.target.result);
+		}
+		reader.readAsText(file);
+	}
+
+	function downloadGame() {
+		resetClick(0);
+		gotoHelp("main");
+		const url = URL.createObjectURL(new Blob([localStorage.game]));
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = playerName+".LetterBowling.txt";
+		const clickHandler = () => {
+			setTimeout(() => {
+				URL.revokeObjectURL(url);
+				removeEventListener('click', clickHandler);
+			}, 150);
+		};
+		a.addEventListener('click',clickHandler,false);
+		setTimeout(function(){a.click()},100);
+	}
+
+	function changeDictionary() {
+		resetClick(0);
+		gotoHelp("main");
+		if(true) {
+			reply = window.confirm("Custom dictionaries are not yet implemented.");
+			return;
+		}
+		localStorage.saveGame=localStorage.game;
+		localStorage.game=null;
+		document.getElementById("openDictionary").click();
+	}
+
+	function readDictionary(e) {
+		var file = e.target.files[0];
+		if (!file) {
+			localStorage.game=localStorage.saveGame;
+			return;
+		}
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			dictionaryFile = file.name;
+			dictionary = e.target.result.split("\n");
+			generateValidStrikes();
+			if(game.localStorage)
+				parseGame(game.localStorage);
+			else
+				startGame(parseInt(document.getElementById("seed").textContent,16),null);
+		}
+		reader.readAsText(file);
+	}
+
+	function resetDictionary() {
+		resetClick(0);
+		gotoHelp("main");
+		reply = window.confirm("Do you want to start a new game with the SOWPODS dictionary");
+		if(reply) {
+			dictionaryFile = null;
+			dictionary = defaultDictionary;
+			generateValidStrikes();
+			startGame(parseInt(document.getElementById("seed").textContent,16),null);
+		}
+	}
+
+	function nextFrame() {
+		if(displayFrame != frame) {
+			displayFrame=frame;
+			setPaused(savePaused);
+			downShape=saveDownShape;
+		}
+		if(paused) {
+			strikeFrame=frame;
+			endFrame();
+		}
+		setPaused(false);
+		enableButton("nextFrame",false);
+		downShape=0;
+		update(false);
+		clearWordEntry();
+	}
+
+
+	function timeTravel(ff) {
+		if(ff>frame || ff==displayFrame)
+			return;
+		if(displayFrame==frame) {
+			savePaused=paused;
+			saveDownShape=downShape;
+		}
+		if(ff==frame) {
+			setPaused(savePaused);
+		} else {
+			setPaused(true);
+		}
+		displayFrame=ff;
+		if(paused) {
+			downShape=0;
+		} else {
+			downShape=saveDownShape;
+		}
+		clearWordEntry();
+		update(false);
+	}
+
+	function updateStrikeLabel(f) {
+		var f = paused ? displayFrame : strikeFrame;
+		var text;
+		if(getPref("hideStrike") || f<0)
+			text="";
+		else
+			text="The srike for "+getFrameName(f)+ " was: "+strikeWords[f]+" ("+strikeBalls[f]+")";
+		document.getElementById("strike").textContent=text;
+	}
+
+	function getFrameName(f) {
+		if(f<10)
+			return "frame "+(f+1);
+		if(f==10)
+			return "the first extra frame";
+		if(f==11)
+			return "the second extra frame";
+		return "unknown frame";
+	}
+
+	function setPaused(pause) {
+		paused = pause;
+		enableButton("nextFrame",paused);
+		document.getElementById("bowl").textContent=(paused ? "Paused" : "Bowl");
+	}
+
+	function resetClick(skip) {
+		if(skip!=1)
+			document.getElementById("fileDropdown").classList.remove("show");
+		if(skip!=2)
+			document.getElementById("settingsDropdown").classList.remove("show");
+		if(skip!=3)
+			document.getElementById("helpDropdown").classList.remove("show");
+	}
+
+	function menuFile() {
+		resetClick(1);
+		document.getElementById("fileDropdown").classList.toggle("show");
+	}
+
+	function menuSettings() {
+		resetClick(2);
+		document.getElementById("settingsDropdown").classList.toggle("show");
+	}
+
+	function menuHelp() {
+		resetClick(3);
+		document.getElementById("helpDropdown").classList.toggle("show");
+	}
+
+	function gotoHelp(page) {
+		resetClick(0);
+		updateHelp("main",page);
+		updateHelp("helpOverview",page);
+		updateHelp("helpThrow",page);
+		updateHelp("helpWords",page);
+		updateHelp("helpScore",page);
+		updateHelp("helpGeeks",page);
+		updateHelp("helpAbout",page);
+	}
+
+	function updateHelp(div, page) {
+		if(div===page)
+			document.getElementById(div).style.display="block";
+		else
+			document.getElementById(div).style.display="none";
 	}
 
 	function frameClick(frame) {
-	  resetClick();
+		resetClick(0);
+		timeTravel(frame);
 	}
 
 	function pinClick(pin) {
-	  resetClick();
+		resetClick(0);
+		if(red & (1<<pin))
+			return;
+		pinColor = ((green | pink)>>pin) & 1;
+		for(var i=0;i<10;i++) {
+			iColor = ((green | pink)>>i) & 1;
+			if(pinSets[displayFrame][i]!=pinSets[displayFrame][pin] || iColor==pinColor)
+				continue;
+			if(green & ((1<<i) | (1<<pin)))
+				green ^= (1<<i) | (1<<pin);
+			else
+				pink ^= (1<<i) | (1<<pin);
+			update(false);
+			break;
+		}
 	}
 </script>
 <script src="./dictionary.js"></script>
