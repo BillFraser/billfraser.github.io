@@ -109,6 +109,7 @@
 	      <a href="#" onClick="todayGame()">Today's Game</a>
 	      <a href="#" onClick="nextGame()">Next Game</a>
 	      <a href="#" onClick="randomGame()">Random Game</a>
+	      <a href="#" onClick="restoreGame()">Restore Game</a>
 	      <a href="#" onClick="openGame()">Open</a>
 	      <a href="#" onClick="downloadGame()">Save</a>
 	      <a href="#" onClick="changeDictionary()">Change Dictionary</a>
@@ -793,19 +794,13 @@ bfraser@alumni.ucsd.edu<p>
 		context.fillText(text,x-metrics.width/2,y-(metrics.emHeightDescent-metrics.emHeightAscent)/2);
 	}
 
-	function loadDictionary(name) {
-		console.log("Loading dictionary: "+name);
-		localStorage.saveGame=null;
-		document.getElementById("openDictionary").click();
-	}
-
 	parseGame = function(gameText) {
 		let game = gameText.split("\n");
 		let line = game[0].split(" ");
 		let seed = parseInt(line[0],16);
 		playerName = game[1];
-		dictionaryFile=((game[2].length==0) ? null : game[2]); // compare with loadDict -- should matter, though.....
-		dictionaryHash=game[3];	// compare with hash from loadDict....
+		dictionaryFile=((game[2].length==0) ? null : game[2]);
+		dictionaryHash=game[3];
 		startGame(seed,parseInt(line[1]));
 		for(var i=4;i<game.length;i++) {
 			line = game[i].split(" ");
@@ -904,6 +899,7 @@ bfraser@alumni.ucsd.edu<p>
 			}
 		}
 		if(validStrikes.length==0) {
+			window.confirm("There are no valid strikes!");
 			console.log("No valid strikes!");
 		} else {
 			//console.log(validStrikes.length+" valid strikes!");
@@ -915,14 +911,11 @@ bfraser@alumni.ucsd.edu<p>
 			rng();
 		var count=0;
 		if(validStrikes.length==0) {
-			if(index==0)
-				console.log("There are no valid strikes in the current dictionary!");
 			pinSets[index]="";
 			strikeWords[index]="";
 			strikeBalls[index]="";
 			return;
 		}
-//const k = rng();
 		const word = validStrikes[rng()%validStrikes.length];
 		for(var i=0;i<word.length;i++) {
 			const ch = word[i];
@@ -1066,7 +1059,6 @@ bfraser@alumni.ucsd.edu<p>
 			if(mask & (1<<i))
 				return removePiece(mask,i)==0;
 		}
-		console.log("No set bits!");
 	}
 
 	function removePiece(mask, location) {
@@ -1085,6 +1077,8 @@ bfraser@alumni.ucsd.edu<p>
 	}
 
 	window.onload = function() {
+		savedGame = localStorage.game;
+		savedHash = null;
 		for(var i=0;i<6;i++) {
 			const canvas = document.getElementById("bb"+i);
 			const context = canvas.getContext("2d");
@@ -1113,24 +1107,26 @@ bfraser@alumni.ucsd.edu<p>
 		//	If the current dictionary matches the desired dictionary, don't do anything
 		//	If the desired dictionary is the default, reaload it.
 		//	Otherwise, prompt the user to load it by name.....
-		if(localStorage.game) {
+		if(true && localStorage.game) {
 			game = localStorage.game.split("\n");
-			if(game[2].length==0) {
+			if(game.length<4) {
+			} else if(game[2].length==0) {
 				dictionaryFile=null;
 				dictionaryHash=defaultDictionaryHash;
 				dictionary = defaultDictionary;
 				generateValidStrikes();
 				parseGame(localStorage.game);
+				return;
 			} else {
-				loadDictionary(game[2],game[3]);
+				window.confirm("For security reasons, I cannot autoload dictionaries.  You'll need to load the dictionary "+game[2]+", then Restore Game");
+				savedHash=game[3];
 			}
-		} else {
-			dictionaryFile=null;
-			dictionaryHash=defaultDictionaryHash;
-			dictionary = defaultDictionary;
-			generateValidStrikes();
-			startGame(todaySeed(),null);
-		}
+		} 
+		dictionaryFile=null;
+		dictionaryHash=defaultDictionaryHash;
+		dictionary = defaultDictionary;
+		generateValidStrikes();
+		startGame(todaySeed(),null);
 	}
 
 	function applyDefaultMenuPrefs() {
@@ -1313,9 +1309,21 @@ bfraser@alumni.ucsd.edu<p>
 	function randomGame() {
 		resetClick(0);
 		gotoHelp("main");
-		reply = window.prompt("Do you wish to start the next game?",randomSeed().toString(16));
+		reply = window.prompt("Do you wish to start a new random game?",randomSeed().toString(16));
 		if(reply)
 			startGame(parseInt(reply,16),null);
+	}
+
+	function restoreGame() {
+		resetClick(0);
+		gotoHelp("main");
+		if(savedHash && (savedHash !== dictionaryHash)) {
+			window.confirm("Currently loaded dictionary with hash "+dictionaryHash+" does not match saved game "+savedHash);
+			return;
+		}
+		reply = window.confirm("Do you wish to restore the saved game?");
+		if(reply)
+			parseGame(savedGame);
 	}
 
 	function openGame() {
@@ -1330,7 +1338,22 @@ bfraser@alumni.ucsd.edu<p>
 			return;
 		var reader = new FileReader();
 		reader.onload = function(e) {
-			parseGame(e.target.result);
+			game = e.target.result.split("\n");
+			if(game.length<4) {
+				window.confirm("Unable to read game file.");
+			} else if(game[2].length==0) {
+				dictionaryFile=null;
+				dictionaryHash=defaultDictionaryHash;
+				dictionary = defaultDictionary;
+				generateValidStrikes();
+				parseGame(e.target.result);
+			} else if(game[3] === dictionaryHash) {
+				parseGame(e.target.result);
+			} else {
+				savedGame = game;
+				savedHash = game[3];
+				window.confirm("For security reasons, I cannot autoload dictionaries.  You'll need to load the dictionary "+game[2]+", then Restore Game");
+			}
 		}
 		reader.readAsText(file);
 	}
@@ -1355,32 +1378,45 @@ bfraser@alumni.ucsd.edu<p>
 	function changeDictionary() {
 		resetClick(0);
 		gotoHelp("main");
-		if(true) {
-			reply = window.confirm("Custom dictionaries are not yet implemented.");
+		if(false) {
+			window.confirm("Custom dictionaries are not yet implemented.");
 			return;
 		}
-		localStorage.saveGame=localStorage.game;
-		localStorage.game=null;
+		newHash=null;
+		newGame=null;
 		document.getElementById("openDictionary").click();
 	}
 
 	function readDictionary(e) {
 		var file = e.target.files[0];
 		if (!file) {
-			localStorage.game=localStorage.saveGame;
+			if(!localStorage.game) {
+				dictionaryFile=null;
+				dictionaryHash=defaultDictionaryHash;
+				dictionary = defaultDictionary;
+				generateValidStrikes();
+				startGame(todaySeed(),null);
+			}
 			return;
 		}
 		var reader = new FileReader();
 		reader.onload = function(e) {
+			const newDictionaryHash = MD5(e.target.result);
+			if(newHash && newHash !== newDictionaryHash) {
+				window.confirm("Hash "+newDictionaryHash+" does not match expected "+dictionaryHash);
+				if(!localStorage.game)
+					startGame(todaySeed(),null);
+				return;
+			}
 			dictionaryFile = file.name;
-			dictionaryHash = MD5(e.target.result);
+			dictionaryHash = newDictionaryHash;
 			dictionary = e.target.result.split("\n");
 			generateValidStrikes();
-			if(localStorage.game)
-				parseGame(localStorage.game);
+			if(newGame)
+				parseGame(newGame);
 			else
 				startGame(parseInt(document.getElementById("seed").textContent,16),null);
-		}
+		};
 		reader.readAsText(file);
 	}
 
