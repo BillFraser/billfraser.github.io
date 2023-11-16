@@ -205,70 +205,70 @@
 	    <td>
 		<table>
 		  <tr>
-		    <td><span id="word0"/>00</td>
+		    <td><span id="word0"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word1"/>01</td>
+		    <td><span id="word1"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word2"/>02</td>
+		    <td><span id="word2"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word3"/>03</td>
+		    <td><span id="word3"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word4"/>04</td>
+		    <td><span id="word4"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word5"/>05</td>
+		    <td><span id="word5"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word6"/>06</td>
+		    <td><span id="word6"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word7"/>07</td>
+		    <td><span id="word7"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word8"/>08</td>
+		    <td><span id="word8"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word9"/>09</td>
+		    <td><span id="word9"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word10"/>10</td>
+		    <td><span id="word10"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word11"/>11</td>
+		    <td><span id="word11"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word12"/>12</td>
+		    <td><span id="word12"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word13"/>13</td>
+		    <td><span id="word13"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word14"/>14</td>
+		    <td><span id="word14"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word15"/>15</td>
+		    <td><span id="word15"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word16"/>16</td>
+		    <td><span id="word16"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word17"/>17</td>
+		    <td><span id="word17"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word18"/>18</td>
+		    <td><span id="word18"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word19"/>19</td>
+		    <td><span id="word19"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word20"/>20</td>
+		    <td><span id="word20"/></td>
 		  </tr>
 		  <tr>
-		    <td><span id="word21"/>21</td>
+		    <td><span id="word21"/></td>
 		  </tr>
 		</table>
 	    </td>
@@ -804,9 +804,10 @@ bfraser@alumni.ucsd.edu<p>
 		let line = game[0].split(" ");
 		let seed = parseInt(line[0],16);
 		playerName = game[1];
-		dictionaryFile=((game[2].length==0) ? null : game[2]);
+		dictionaryFile=((game[2].length==0) ? null : game[2]); // compare with loadDict -- should matter, though.....
+		dictionaryHash=game[3];	// compare with hash from loadDict....
 		startGame(seed,parseInt(line[1]));
-		for(var i=3;i<game.length;i++) {
+		for(var i=4;i<game.length;i++) {
 			line = game[i].split(" ");
 			if(line.length==1)
 				continue;
@@ -844,6 +845,7 @@ bfraser@alumni.ucsd.edu<p>
 		appendGame(seed.toString(16).padStart(8,'0')+" "+startTime);
 		appendGame(playerName);
 		appendGame(dictionaryFile==null ? "" : dictionaryFile);
+		appendGame(dictionaryHash);
 		appendGame("");
 		updateSeedButton(seed);
 		rng = mulberry32(seed);
@@ -1114,21 +1116,19 @@ bfraser@alumni.ucsd.edu<p>
 		if(localStorage.game) {
 			game = localStorage.game.split("\n");
 			if(game[2].length==0) {
-				console.log("default dictionary with game: "+defaultDictionary.length);
-				dictionary = defaultDictionary;
-				console.log("default dictionary with game: "+dictionary.length);
-				generateValidStrikes();
 				dictionaryFile=null;
+				dictionaryHash=defaultDictionaryHash;
+				dictionary = defaultDictionary;
+				generateValidStrikes();
 				parseGame(localStorage.game);
 			} else {
-				console.log("custom dictionary with game");
-				loadDictionary(game[2]);
+				loadDictionary(game[2],game[3]);
 			}
 		} else {
-			console.log("default dictionary without game");
+			dictionaryFile=null;
+			dictionaryHash=defaultDictionaryHash;
 			dictionary = defaultDictionary;
 			generateValidStrikes();
-			dictionaryFile=null;
 			startGame(todaySeed(),null);
 		}
 	}
@@ -1184,9 +1184,9 @@ bfraser@alumni.ucsd.edu<p>
 		if(updateFrame(word, count)) {
 			strikeFrame=frame;
 			endFrame();
+			downShape=0;
 			if(getPref("autoAdvance")) {
 				enableButton("nextFrame",true);
-				downShape=0;
 			} else {
 				timeTravel(strikeFrame);
 			}
@@ -1373,10 +1373,11 @@ bfraser@alumni.ucsd.edu<p>
 		var reader = new FileReader();
 		reader.onload = function(e) {
 			dictionaryFile = file.name;
+			dictionaryHash = MD5(e.target.result);
 			dictionary = e.target.result.split("\n");
 			generateValidStrikes();
-			if(game.localStorage)
-				parseGame(game.localStorage);
+			if(localStorage.game)
+				parseGame(localStorage.game);
 			else
 				startGame(parseInt(document.getElementById("seed").textContent,16),null);
 		}
@@ -1389,6 +1390,7 @@ bfraser@alumni.ucsd.edu<p>
 		reply = window.confirm("Do you want to start a new game with the SOWPODS dictionary");
 		if(reply) {
 			dictionaryFile = null;
+			dictionaryHash = defaultDictionaryHash;
 			dictionary = defaultDictionary;
 			generateValidStrikes();
 			startGame(parseInt(document.getElementById("seed").textContent,16),null);
@@ -1408,8 +1410,8 @@ bfraser@alumni.ucsd.edu<p>
 		setPaused(false);
 		enableButton("nextFrame",false);
 		downShape=0;
-		update(false);
 		clearWordEntry();
+		update(false);
 	}
 
 
