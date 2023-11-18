@@ -793,7 +793,7 @@ bfraser@alumni.ucsd.edu<p>
 
 	function drawText(context,x,y,text) {
 		const metrics = context.measureText(text);
-		context.fillText(text,x-metrics.width/2,y-(metrics.emHeightDescent-metrics.emHeightAscent)/2);
+		context.fillText(text,x-metrics.width/2,y-(metrics.fontBoundingBoxDescent-metrics.fontBoundingBoxAscent)/2);
 	}
 
 	parseGame = function(gameText) {
