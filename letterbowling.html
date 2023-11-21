@@ -668,8 +668,8 @@ bfraser@alumni.ucsd.edu<p>
 		context.fillStyle = "white";
 		context.fillRect(0,0,SCORE_WIDTH,SCORE_HEIGHT);
 		context.fillStyle = saveFill;
-		context.font = "15px Arial";
-		drawText(context,SCORE_WIDTH/2,SCORE_HEIGHT/2,""+calculateTotalScore());
+		context.font = "16px Arial";
+		drawText(context,SCORE_WIDTH/2,SCORE_HEIGHT/2,""+calculateTotalScore(),16);
 	}
 
 	function drawScoreArea(context, frame) {
@@ -679,6 +679,7 @@ bfraser@alumni.ucsd.edu<p>
 		context.fillStyle = "white";
 		context.fillRect(0,0,SCORE_WIDTH,SCORE_HEIGHT);
 		context.fillStyle = saveFill;
+		context.font = "16px Arial";
 		context.strokeRect(1,1,SCORE_WIDTH-1,SCORE_HEIGHT-1);
 		if(frame==displayFrame) {
 			context.strokeRect(2,2,SCORE_WIDTH-3,SCORE_HEIGHT-3);
@@ -689,17 +690,17 @@ bfraser@alumni.ucsd.edu<p>
 		context.lineTo(SCORE_WIDTH-1,1);
 		context.stroke();
 		if(topScores[frame]==10) {
-			drawText(context,SCORE_WIDTH/4,SCORE_HEIGHT/4,"X");
+			drawText(context,SCORE_WIDTH/4,SCORE_HEIGHT/4,"X",16);
 			if(bottomScores[frame]==10)
-				drawText(context,3*SCORE_WIDTH/4,3*SCORE_HEIGHT/4,"X");
+				drawText(context,3*SCORE_WIDTH/4,3*SCORE_HEIGHT/4,"X",16);
 			else if(bottomScores[frame]>=0)
-				drawText(context,3*SCORE_WIDTH/4,3*SCORE_HEIGHT/4,""+bottomScores[frame]);
+				drawText(context,3*SCORE_WIDTH/4,3*SCORE_HEIGHT/4,""+bottomScores[frame],16);
 		} else if(topScores[frame]>=0) {
-			drawText(context,SCORE_WIDTH/4,SCORE_HEIGHT/4,""+topScores[frame]);
+			drawText(context,SCORE_WIDTH/4,SCORE_HEIGHT/4,""+topScores[frame],16);
 			if(bottomScores[frame]+topScores[frame]==10)
-				drawText(context,3*SCORE_WIDTH/4,3*SCORE_HEIGHT/4,"/");
+				drawText(context,3*SCORE_WIDTH/4,3*SCORE_HEIGHT/4,"/",16);
 			else if(bottomScores[frame]>=0)
-				drawText(context,3*SCORE_WIDTH/4,3*SCORE_HEIGHT/4,""+bottomScores[frame]);
+				drawText(context,3*SCORE_WIDTH/4,3*SCORE_HEIGHT/4,""+bottomScores[frame],16);
 		}
 	}
 
@@ -752,7 +753,7 @@ bfraser@alumni.ucsd.edu<p>
 			context.fill();
 			context.fillStyle=saveFill;
 		
-			drawText(context,x+2*ICON_WIDTH/3,y+ICON_HEIGHT/2,text);
+			drawText(context,x+2*ICON_WIDTH/3,y+ICON_HEIGHT/2,text,20);
 		} else {
 			context.beginPath();
 			context.moveTo(x+tX(0),y+tY(0));
@@ -779,7 +780,7 @@ bfraser@alumni.ucsd.edu<p>
 			context.fill();
 			context.fillStyle=saveFill;
 		
-			drawText(context,x+ICON_WIDTH/2,y+2*ICON_HEIGHT/3,text);
+			drawText(context,x+ICON_WIDTH/2,y+2*ICON_HEIGHT/3,text,20);
 		}
 	}
 
@@ -791,9 +792,13 @@ bfraser@alumni.ucsd.edu<p>
 		return pinPoints[i][1]*ICON_HEIGHT;
 	}
 
-	function drawText(context,x,y,text) {
+	function drawText(context,x,y,text,fontSize) {
 		const metrics = context.measureText(text);
-		context.fillText(text,x-metrics.width/2,y-(metrics.fontBoundingBoxDescent-metrics.fontBoundingBoxAscent)/2);
+		context.fillText(text,x-metrics.width/2,y-(metrics.actualBoundingBoxDescent-metrics.actualBoundingBoxAscent)/2);
+		//console.log(fontSize+" "+metrics.fontBoundingBoxDescent+" "+metrics.actualBoundingBoxDescent+" "+metrics.fontBoundingBoxAscent+" "+metrics.actualBoundingBoxAscent);
+
+		//context.textAlign="center";
+		//context.fillText(text,x,y+fontSize/2);
 	}
 
 	parseGame = function(gameText) {
