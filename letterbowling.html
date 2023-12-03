@@ -175,7 +175,7 @@
 	  </tr>
 	  <tr>
 	    <td>
-		<button id="btnCheckWords" onClick="toggleMenuPref('checkWords')"/>&#x2713;
+		<button id="btnCheckWords" onClick="toggleMenuPref('checkWords')"/>&emsp;&emsp;&emsp;&#x2713;&emsp;&emsp;&emsp;
 	    </td>
 	    <td>
 		<input id="word"></input>
@@ -289,7 +289,8 @@
 </center>
 As in regular bowling, each frame you have two tries to knock down as many pins as possible.<P><P>
 
-You knock down pins by typing a word and clicking &quot;Bowl&quot; (or hitting Enter).<P><P>
+You knock down pins by typing a word, clicking pins as needed to chose which to knock down, and then clicking &quot;Bowl&quot; (or hitting Enter).
+In addition to the letters on the pins, your word MUST contain one or more copies of another letter, representing the bowling ball.<P><P>
 
 By default, you must click &quot;Next Frame&quot; after each frame.<P>
 <CENTER>*&nbsp;*&nbsp;*</CENTER><P><P>
@@ -337,12 +338,13 @@ When a letter is used fewer times than there are corresponding pins, you may cha
 <H1>Valid Words</H1>
 </center>
 The default dictionary is the SOWPODS dictionary, which is the one that was formerly used in competition Scrabble.
-You may provide a custom dictionary, provided that the words are uppercase and sorted using the default collation.
+You may provide a custom dictionary, provided that it contains at least one word that is a strike.
 Note that, due to browser security restrictions, you'll be prompted to upload the dictionary manually every session.
 (It should not be necessary that the words be English.  Let me know if you have trouble....)<P><P>
 
-The set of pins for each frame are chosen such that at least one word from the dictionary will knock down all ten.
-Because it must contain all ten pin letters and at least one bowling ball, that word will be at least eleven letters long.<P><P>
+The set of pins for each frame are chosen such that at least one word from the dictionary will knock down all ten,
+but since it is chosen randomly, it is not necessarily a word that most people are familiar with.
+Because it must contain all ten pin letters and at least one bowling ball, it will be at least eleven letters long.<P><P>
 
 Be default, the check mark on the left turns green when the current word is in the dictionary.
 If a word is entered that is not in the dictionary, you are given the option of using it anyway.<P><P>
@@ -884,10 +886,18 @@ bfraser@alumni.ucsd.edu<p>
 		document.getElementById("seedSpan").textContent=seed;
 	}
 
-	function generateValidStrikes() {
+	function isAlreadySorted(list) {
+		return dictionaryFile==null;
+	}
+
+	function processDictionary() {
 		validStrikes = [];
+		var isSorted = isAlreadySorted(dictionary);
+		newDictionary = [];
 		for(var w=0;w<dictionary.length;w++) {
-			const word = dictionary[w];
+			const word = dictionary[w].toUpperCase();
+			if(!isSorted)
+				newDictionary[w]=word;
 			if(word.length<=10)
 				continue;
 			for(var i=0;i<word.length;i++) {
@@ -910,7 +920,9 @@ bfraser@alumni.ucsd.edu<p>
 			console.log("No valid strikes!");
 		} else {
 			//console.log(validStrikes.length+" valid strikes!");
-		}
+		}	
+		if(!isSorted)
+			dictionary=newDictionary.sort();
 	}
 
 	function getPinSet(index) {
@@ -1121,7 +1133,7 @@ bfraser@alumni.ucsd.edu<p>
 				dictionaryFile=null;
 				dictionaryHash=defaultDictionaryHash;
 				dictionary = defaultDictionary;
-				generateValidStrikes();
+				processDictionary();
 				parseGame(localStorage.game);
 				return;
 			} else {
@@ -1132,7 +1144,7 @@ bfraser@alumni.ucsd.edu<p>
 		dictionaryFile=null;
 		dictionaryHash=defaultDictionaryHash;
 		dictionary = defaultDictionary;
-		generateValidStrikes();
+		processDictionary();
 		startGame(todaySeed(),null);
 	}
 
@@ -1352,7 +1364,7 @@ bfraser@alumni.ucsd.edu<p>
 				dictionaryFile=null;
 				dictionaryHash=defaultDictionaryHash;
 				dictionary = defaultDictionary;
-				generateValidStrikes();
+				processDictionary();
 				parseGame(e.target.result);
 			} else if(game[3] === dictionaryHash) {
 				parseGame(e.target.result);
@@ -1401,7 +1413,7 @@ bfraser@alumni.ucsd.edu<p>
 				dictionaryFile=null;
 				dictionaryHash=defaultDictionaryHash;
 				dictionary = defaultDictionary;
-				generateValidStrikes();
+				processDictionary();
 				startGame(todaySeed(),null);
 			}
 			return;
@@ -1418,7 +1430,7 @@ bfraser@alumni.ucsd.edu<p>
 			dictionaryFile = file.name;
 			dictionaryHash = newDictionaryHash;
 			dictionary = e.target.result.split("\n");
-			generateValidStrikes();
+			processDictionary();
 			if(newGame)
 				parseGame(newGame);
 			else
@@ -1435,7 +1447,7 @@ bfraser@alumni.ucsd.edu<p>
 			dictionaryFile = null;
 			dictionaryHash = defaultDictionaryHash;
 			dictionary = defaultDictionary;
-			generateValidStrikes();
+			processDictionary();
 			startGame(parseInt(document.getElementById("seed").textContent,16),null);
 		}
 	}
