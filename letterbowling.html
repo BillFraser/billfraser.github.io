@@ -401,7 +401,7 @@ The seed for the next game is generated from the current seed, so if a group of 
 <canvas id="bb5" width="85px" height="85px"></canvas><p>
 Letter Bowling<p>
 by William Fraser<p>
-Version 20231117<p>
+Version 20231220<p>
 Covered by <a href="http://BillFraser.github.io/LICENSE.md">GNU AGPL</a><p>&nbsp<p>
 I'd love to hear feedback from anyone who uses this game!<p>
 You can contact me at<p>
@@ -525,8 +525,8 @@ bfraser@alumni.ucsd.edu<p>
 			}
 		}
 		var shouldBePink = determinePinkness(shouldBeGreen,shouldBeRed);
-		if(shouldBePink!=0 && shouldBeRed==0 && newWord) {
-			let match = shapeToString(shouldBePink);
+		if((shouldBePink!=0 || downShape!=0) && shouldBeRed==0 && newWord) {
+			let match = shapeToString(shouldBeGreen);
 			var bestScore = 0;
 			for(var i=0;i<1024;i++) {
 				m = shapeToString(i);
@@ -865,6 +865,7 @@ bfraser@alumni.ucsd.edu<p>
 		clearWords();
 		nextSeed = rng();
 		clearWordEntry();
+		setPaused(false);
 		update(true);
 	}
 
