@@ -1,3 +1,4 @@
+<html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -22,6 +23,14 @@
       align-items: center;
     }
 
+    .vertical-center {
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+    }
+
     .top {
       color: yellow;
       font-size: 20;
@@ -29,6 +38,7 @@
 
       width: 100%;
       height: 10%;
+      position: relative;
 
       justify-content: center;
       align-items: center;
@@ -37,11 +47,11 @@
     .body {
       color: gold;
 
-      width: 100%;
       height: 80%;
+      position: relative;
+      margin: 0px 20px;
 
       overflow-y: auto;
-      margin: 5px;
       justify-content: center;
       align-items: center;
     }
@@ -49,6 +59,7 @@
     .nav {
       width: 100%;
       height: 10%;
+      position: relative;
     }
 
     p {
@@ -63,10 +74,12 @@
   <div id="main" class="topLevelView">
     <div id="settings" class="not-hidden">
       <div id="settings-top" class="top">
-        <center>Welcome to Groupshare!</center>
+        <div class="vertical-center">
+          <center>Welcome to Groupshare!</center>
+        </div>
       </div>
       <div id="settings-body" class="body">
-        <center><img src="assets/icon.png" alt="logo"/></center>
+        <center><img src="assets/images/icon.png" alt="Logo of 6 friends standing around a campfire"/></center>
         <p/>
         <center>Version 5.0.0</center>
         <p/>
@@ -74,68 +87,167 @@
         <p/>
       </div>
       <div id="settings-nav" class="nav">
-        <center>
-          <button type="button" id="start-game" autofocus="true">Start Game!</button>
-          <button type="button" id="resume-game" disabled="true">Resume Game</button>
-          <button type="button" id="show-rules">Show Rules</button>
-        </center>
+        <div class="vertical-center">
+          <center>
+            <button type="button" id="start-game" autofocus="true">Start Game!</button>
+            <button type="button" id="resume-game" disabled="true">Resume Game</button>
+            <button type="button" id="show-rules">Show Rules</button>
+          </center>
+        </div>
         <p/>
       </div>
     </div>
     <div id="rules" class="hidden">
       <div id="rule-top" class="top">
-        This is the heading
-      </div>
-      <div id="rule-body" class="body">
-        <p>
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        </p>
-        <p>
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        This is the body.  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem..  Ipsem lorem.
-        </p>
-      </div>
-      <div id="rule-nav" class="nav-panel">
-        <center>
-          <button type="button" id="done-with-rules">Done</button>
-          <button type="button" id="prev-rule">Prev rule</button>
-          <button type="button" id="next-rule">Next rule</button>
+        <center id="rule-heading" class="vertical-center">
         </center>
       </div>
+      <div id="rule-body" class="body">
+      </div>
+      <div id="rule-nav" class="nav">
+        <div class="vertical-center">
+          <center>
+            <button type="button" id="done-with-rules">Done</button>
+            <button type="button" id="prev-rule" disabled="true">Prev rule</button>
+            <button type="button" id="next-rule">Next rule</button>
+          </center>
+        </div>
+      </div>
     </div>
-    <div id="cardFront" class="hidden">
+    <div id="card-front" class="hidden">
       3
     </div>
-    <div id="cardBack" class="hidden">
+    <div id="card-back" class="hidden">
       4
     </div>
   </div>
+
 </body>
+<script src="data/Rules.js"></script>
+<script src="data/Cards.js"></script>
+<script src="data/Sounds.js"></script>
+<script type="text/javascript"> 
+  state = {
+
+    // time settings
+
+    validTime: true,
+    editTime: "2:00",
+    humanTime: "2 minutes",
+    computerTime: "120",
+
+    // deck tracking
+
+    currentCardIndex: 0,
+    currentCard: Cards[0],
+    back: false, 
+    followup: false,
+    timer: false,
+    paused: false,
+
+    // rules tracking
+
+    currentRuleIndex: 0,
+    currentRule: Rules[0],
+  }
+
+  window.onload = function() {
+
+    document.getElementById("show-rules").onclick = function() {
+      updateRuleIndex(0);
+      setPage("rules");
+    }
+
+    document.getElementById("done-with-rules").onclick = function() {
+      setPage("settings");
+    }
+
+    document.getElementById("prev-rule").onclick = function() {
+      updateRuleIndex(-1);
+    }
+
+    document.getElementById("next-rule").onclick = function() {
+      updateRuleIndex(1);
+    }
+
+    setPage = function(page) {
+      if(page==="settings")
+        document.getElementById("settings").classList.remove("hidden");
+      else
+        document.getElementById("settings").classList.add("hidden");
+
+      if(page==="rules")
+        document.getElementById("rules").classList.remove("hidden");
+      else
+        document.getElementById("rules").classList.add("hidden");
+
+      if(page==="card-front")
+        document.getElementById("card-front").classList.remove("hidden");
+      else
+        document.getElementById("card-front").classList.add("hidden");
+
+      if(page==="card-back")
+        document.getElementById("card-back").classList.remove("hidden");
+      else
+        document.getElementById("card-back").classList.add("hidden");
+    }
+
+    updateRuleIndex = function(delta) {
+      state.currentRuleIndex += delta;
+      if(state.currentRuleIndex==0)
+        document.getElementById("prev-rule").disabled = true;
+      else
+        document.getElementById("prev-rule").disabled = false;
+      if(state.currentRuleIndex==Rules.length-1)
+        document.getElementById("next-rule").disabled = true;
+      else
+        document.getElementById("next-rule").disabled = false;
+      state.currentRule = Rules[state.currentRuleIndex];
+      document.getElementById("rule-heading").innerHTML = state.currentRule.heading;
+      document.getElementById("rule-body").innerHTML = state.currentRule.text;
+    }
+
+    document.getElementById("start-game").onclick = function() {
+      state.deck = shuffle();
+      currentCardIndex = 0;
+      currentCard = Cards[0];
+      back = false;
+      followup = false;
+      timer = false;
+      setPage("card-front");
+    }
+
+    document.getElementById("resume-game").onclick = function() {
+      setPage("card-back");
+    }
+
+  // Leave the "S" cards at the start, the "E" cards at the end, and shuffle the rest!
+  shuffle = function() {
+    // Sounds.shuffle.setOnPlaybackStatusUpdate(this.postShuffle);
+    Sounds.shuffle.play();
+    var startCards = [];
+    var endCards = [];
+    var shuffleCards = [];
+    for(var i=0;i<Cards.length;i++) {
+      if(Cards[i].id.match(/S/))
+        startCards.push(i);
+      else if(Cards[i].id.match(/E/))
+        endCards.push(i);
+      else
+        shuffleCards.push(i);
+    }     
+    for(var i=shuffleCards.length-1;i>0;i--) {
+      var index = Math.floor(Math.random()*(i+1));
+      var swap = shuffleCards[i];
+      shuffleCards[i] = shuffleCards[index];
+      shuffleCards[index] = swap;
+    }
+    return startCards.concat(shuffleCards, endCards);
+
+  }
+
+
+  };
+</script>
+
+</html>
