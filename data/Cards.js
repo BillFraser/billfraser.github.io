@@ -345,7 +345,7 @@ text:'<p>Invite one other player to sit next to you, look in their eyes, and sha
 followup:false},
 
 {id:'I48',heading:'Individual Card',
-text:'<p>Invite other(s) to join you in demonstrating your two favorite sexual positions within {time}.  Negotiate in advance: <ul><li> What are the positions?</li><li>Shall we remove any clothing?</li><li> Shall we run sexual energy?</li></lu>Once in full consent, press PLAY to start the timer.</p>',
+text:'<p>Invite other(s) to join you in demonstrating your two favorite sexual positions within {time}.  Negotiate in advance: <ul><li> What are the positions?<li>Shall we remove any clothing?<li> Shall we run sexual energy?</lu>Once in full consent, press PLAY to start the timer.</p>',
 followup:true},
 
 {id:'I49',heading:'Individual Card',
@@ -709,7 +709,7 @@ text:'<p>What religion / mythology / spirituality / atheism environment were you
 followup:false},
 
 {id:'I139',heading:'Individual Card',
-text:'<p>Share about your experience with, and your thoughts and feelings about drugs: <ul><li>Prescription</li><li>Alcohol</li><li>Marijuana</li><li>Hallucinogens</li><li>Other</li></ul></p>',
+text:'<p>Share about your experience with, and your thoughts and feelings about drugs: <ul><li>Prescription<li>Alcohol<li>Marijuana<li>Hallucinogens<li>Other</ul></p>',
 followup:false},
 
 {id:'I140',heading:'Individual Card',
@@ -893,7 +893,7 @@ text:'<p>Talk about what role affection plays in your ability or desire to engag
 followup:false},
 
 {id:'I185',heading:'Individual Card',
-text:'<p>Stand in front of the group.  Take a moment to close your eyes and tune into your essence.  Then allow your body to begin moving, inspired by your essence.</p><p>Allow your creative self to be seen through movement.</p><p>Suggestions:<ul><li>Remove any extra clothing</li><li>Put on music if available</li><li>Dance as if no one is watching.</li></ul></p>',
+text:'<p>Stand in front of the group.  Take a moment to close your eyes and tune into your essence.  Then allow your body to begin moving, inspired by your essence.</p><p>Allow your creative self to be seen through movement.</p><p>Suggestions:<ul><li>Remove any extra clothing<li>Put on music if available<li>Dance as if no one is watching.</ul></p>',
 followup:true},
 
 {id:'I186',heading:'Individual Card',

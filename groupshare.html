@@ -78,6 +78,7 @@
         <p/>
         <center>Copyright 2012-2026</center>
         <p/>
+        <center><input type="text" id="turn-length" placeholder="min:sec (default 2:00)"></input></center>
       </div>
       <div id="settings-nav" class="nav">
         <center>
@@ -273,12 +274,32 @@
 
     document.getElementById("start-game").onclick = function() {
       document.getElementById("resume-game").disabled = false;
+      setTurnLength(document.getElementById("turn-length").value);
       state.deck = shuffle();
       state.currentCardIndex = 0;
       state.followup = false;
       state.timer = false;
       updateCardIndex(0);
       setPage("card-front");
+    }
+
+    setTurnLength = function(text) {
+      if(!text.match(/^[1-9]?[0-9]:[0-5][0-9]$/)) {
+        state.validTime = false;
+        state.editTime = "2:00";
+        state.humanTime = "2 minutes";
+        state.computerTime = "120";
+        // document.getElementById("turn-length").color='red';   // This doesn't work, no biggie.
+        return;
+      }
+      var times = text.split(":");
+      var minutes = Number(times[0]);
+      var seconds = Number(times[1]);
+      state.computerTime = minutes*60+seconds;
+      state.humanTime = convertToHumanTime(state.computerTime,true);
+      state.editTime = text;
+      state.validTime = true;
+      // document.getElementById("turn-length").color='black';   // This doesn't work, no biggie.
     }
 
     document.getElementById("resume-game").onclick = function() {
