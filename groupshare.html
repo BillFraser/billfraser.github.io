@@ -312,9 +312,7 @@
 
     tick = function() {
       if(state.timer && !state.paused) {
-        var timeLeft = state.endTime - Date.now();
-        if(!state.paused)
-          updateTimerValue(timeLeft);
+        updateTimerValue(state.endTime - Date.now());
       }
     }
 
