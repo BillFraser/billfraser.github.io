@@ -10,7 +10,7 @@ Sounds = {
   pass : loadSound('Pass.mp3'),
   play : loadSound('Play.mp3'),
   retire : loadSound('Retire.mp3'),
-  shuffle : loadSound('Whistle.mp3'),
+  shuffle : loadSound('Shuffle.mp3'),
   timerPaused : loadSound('TimerPaused.mp3'),
   whistle : loadSound('Whistle.mp3'),
   yourCard : loadSound('YourCard.mp3'),
