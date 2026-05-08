@@ -12,6 +12,6 @@ Sounds = {
   retire : loadSound('Retire.mp3'),
   shuffle : loadSound('Whistle.mp3'),
   timerPaused : loadSound('TimerPaused.mp3'),
-  whistle : loadSound('Flute.mp3'),
+  whistle : loadSound('Whistle.mp3'),
   yourCard : loadSound('YourCard.mp3'),
 }
