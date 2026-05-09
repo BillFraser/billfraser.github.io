@@ -1,0 +1,44 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta http-equiv="cleartype" content="on">
+  <title>Test!</title>
+</head>
+
+<body>
+<button id="play">Enable sound</button>
+</body>
+</html>
+<script>
+const app = {
+  sound1: new Audio('assets/sounds/Pass.mp3'),
+  sound2: new Audio('assets/sounds/Done.mp3'),
+  startTime: 0,
+  intervalId: null
+};
+
+document.getElementById('play').onclick = async function() {
+  try {
+    await app.sound1.play();           // unlocks audio
+    app.startTime = Date.now();
+    app.intervalId = setInterval(app.tick.bind(app), 100);
+    this.disabled = true;
+  } catch (e) {
+    console.error('unlock/play failed', e);
+  }
+};
+
+app.tick = async function() {
+  if (Date.now() >= this.startTime + 2000) {
+    try {
+      // reuse preloaded element for reliability
+      await this.sound2.play();
+      clearInterval(this.intervalId);
+    } catch (e) {
+      console.error('play failed', e);
+      // if NotAllowedError, require another user gesture
+    }
+  }
+};
+</script>
