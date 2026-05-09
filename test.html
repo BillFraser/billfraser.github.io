@@ -33,14 +33,14 @@ app.tick = async function() {
   if (Date.now() >= this.startTime + 20000) {
     try {
       // reuse preloaded element for reliability
-      await this.sound2.play();
+      await this.sound1.play();
       // clearInterval(this.intervalId);
     } catch (e) {
       console.error('play failed', e);
       // if NotAllowedError, require another user gesture
     }
   } else {
-      await this.sound1.play();
+      await this.sound2.play();
   }
 };
 </script>
