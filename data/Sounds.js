@@ -14,4 +14,5 @@ Sounds = {
   timerPaused : loadSound('TimerPaused.mp3'),
   whistle : loadSound('Whistle.mp3'),
   yourCard : loadSound('YourCard.mp3'),
+  silence : loadSound('Silence.m4a'),
 }

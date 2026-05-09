@@ -13,7 +13,7 @@
 <script>
 const app = {
   sound1: new Audio('assets/sounds/Pass.mp3'),
-  sound2: new Audio('assets/sounds/Done.mp3'),
+  sound2: new Audio('assets/sounds/Silence.mp3'),
   startTime: 0,
   intervalId: null
 };
@@ -30,7 +30,7 @@ document.getElementById('play').onclick = async function() {
 };
 
 app.tick = async function() {
-  if (Date.now() >= this.startTime + 2000) {
+  if (Date.now() >= this.startTime + 20000) {
     try {
       // reuse preloaded element for reliability
       await this.sound2.play();
@@ -39,6 +39,8 @@ app.tick = async function() {
       console.error('play failed', e);
       // if NotAllowedError, require another user gesture
     }
+  } else {
+      await this.sound1.play();
   }
 };
 </script>
