@@ -22,7 +22,7 @@ document.getElementById('play').onclick = async function() {
   try {
     await app.sound1.play();           // unlocks audio
     app.startTime = Date.now();
-    app.intervalId = setInterval(app.tick.bind(app), 100);
+    app.intervalId = setInterval(app.tick.bind(app), 5000);
     this.disabled = true;
   } catch (e) {
     console.error('unlock/play failed', e);
