@@ -1,0 +1,461 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta http-equiv="cleartype" content="on">
+  <title>Groupshare!</title>
+
+  <style>
+    .hidden {
+      display: none;
+    }
+
+    .not-hidden {
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      grid-template-columns: 100%;
+    }
+
+    .topLevelView {
+      height: 100%;
+      margin: 0px;
+      background: green;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .top {
+      color: yellow;
+      font-size: 20;
+      font-weight: bold;
+
+      margin: 10px;
+
+      justify-content: center;
+      align-items: center;
+    }
+
+    .body {
+      color: gold;
+
+      margin: 20px;
+      overflow-y: auto;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .nav {
+      bottom:0;
+      margin: 20px;
+    }
+
+    .timer {
+      color: yellow;
+      font-size: 50;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    p {
+      color: gold;
+    }
+
+  </style>
+
+</head>
+
+<body>
+  <div id="main" class="topLevelView">
+    <div id="settings" class="not-hidden">
+      <div id="settings-top" class="top">
+          <center>Welcome to Groupshare!</center>
+      </div>
+      <div id="settings-body" class="body">
+        <center><img src="assets/images/icon.png" alt="Logo of 6 friends standing around a campfire"/></center>
+        <p/>
+        <center>Version 5.0.0</center>
+        <p/>
+        <center>Copyright 2012-2026</center>
+        <p/>
+        <center><input type="text" id="turn-length" placeholder="min:sec (default 2:00)"></input></center>
+      </div>
+      <div id="settings-nav" class="nav">
+        <center>
+          <button type="button" id="start-game">Start Game!</button>
+          <button type="button" id="resume-game" disabled="true">Resume Game</button>
+          <button type="button" id="show-rules">Show Rules</button>
+        </center>
+        <p/>
+      </div>
+    </div>
+    <div id="rules" class="hidden">
+      <div id="rule-top" class="top">
+        <center id="rule-heading">
+        </center>
+      </div>
+      <div id="rule-body" class="body">
+      </div>
+      <div id="rule-nav" class="nav">
+        <center>
+          <button type="button" id="done-with-rules">Done</button>
+          <button type="button" id="prev-rule" disabled="true">Prev Rule</button>
+          <button type="button" id="next-rule">Next Rule</button>
+        </center>
+      </div>
+    </div>
+    <div id="card-front" class="hidden">
+      <div id="card-front-top" class="top">
+        <center id="card-front-heading">
+        </center>
+      </div>
+      <div id="card-front-body" class="body">
+      </div>
+      <div id="card-front-nav" class="nav">
+        <center>
+          <button type="button" id="play">Play</button>
+          <button type="button" id="pass" class="hidden">Pass</button>
+          <button type="button" id="retire">Retire</button>
+        </center>
+      </div>
+      <div id="card-timer-nav" class="nav hidden">
+        <div class="timer">
+          <center id="card-timer">
+            Press restart for more time
+          </center>
+        </div>
+        <div>
+          <center>
+            <button type="button" id="restart">Restart</button>
+            <button type="button" id="pause-resume">Pause</button>
+            <button type="button" id="done">Done</button>
+          </center>
+        </div>
+      </div>
+    </div>
+    <div id="card-back" class="hidden">
+      <div id="card-back-top" class="top">
+        <center id="card-back-heading">
+        </center>
+      </div>
+      <div id="card-back-body" class="body">
+        <center><img src="assets/images/icon.png" alt="Logo of 6 friends standing around a campfire"/></center>
+        <p/>
+        <center>Version 5.0.0</center>
+        <p/>
+        <center>Copyright 2012-2026</center>
+        <p/>
+      </div>
+      <div id="card-back-nav" class="nav">
+        <center>
+          <button type="button" id="next-card">Next Card</button>
+          <button type="button" id="prev-card">Prev Card</button>
+          <button type="button" id="goto-settings">Settings</button>
+        </center>
+      </div>
+    </div>
+  </div>
+
+</body>
+<script src="data/Rules.js"></script>
+<script src="data/Cards.js"></script>
+<script src="data/Sounds.js"></script>
+<script type="text/javascript"> 
+  state = {
+    // time settings
+
+    validTime: true,
+    editTime: "2:00",
+    humanTime: "2 minutes",
+    computerTime: "120",
+
+    // deck tracking
+
+    followup: false,
+    timer: false,
+    paused: false,
+
+    // page tracking
+
+    currentPage: "settings",
+    currentRuleIndex: 0,
+    currentCardIndex: 0,
+
+  }
+
+  window.onload = function() {
+
+    document.getElementById("show-rules").onclick = function() {
+      updateRuleIndex(0);
+      setPage("rules");
+    }
+
+    document.getElementById("done-with-rules").onclick = function() {
+      setPage("settings");
+    }
+
+    document.getElementById("prev-rule").onclick = function() {
+      updateRuleIndex(-1);
+    }
+
+    document.getElementById("next-rule").onclick = function() {
+      updateRuleIndex(1);
+    }
+
+    setPage = function(newPage) {
+        if(newPage === state.currentPage)
+          return;
+        document.getElementById(state.currentPage).classList.add("hidden");
+        document.getElementById(state.currentPage).classList.remove("not-hidden");
+
+        document.getElementById(newPage).classList.remove("hidden");
+        document.getElementById(newPage).classList.add("not-hidden");
+        state.currentPage = newPage;
+    }
+
+    updateRuleIndex = function(delta) {
+      state.currentRuleIndex += delta;
+      if(state.currentRuleIndex==0)
+        document.getElementById("prev-rule").disabled = true;
+      else
+        document.getElementById("prev-rule").disabled = false;
+      if(state.currentRuleIndex==Rules.length-1)
+        document.getElementById("next-rule").disabled = true;
+      else
+        document.getElementById("next-rule").disabled = false;
+      document.getElementById("rule-heading").innerHTML = Rules[state.currentRuleIndex].heading;
+      document.getElementById("rule-body").innerHTML = Rules[state.currentRuleIndex].text;
+    }
+
+    updateCardIndex = function(delta) {
+      if(delta!=0) {
+        state.followup = false;
+      }
+      state.currentCardIndex += delta;
+      document.getElementById("retire").disabled = (state.currentCarIndex==Cards.length-1);
+      document.getElementById("next-card").disabled = (state.currentCardIndex==Cards.length-1);
+      if(state.followup) {
+        document.getElementById("card-front-heading").innerHTML = "GroupShare";
+        document.getElementById("card-front-body").innerHTML = Followup.replace('{time}',state.humanTime);
+        document.getElementById("pass").classList.add("hidden");
+      } else {
+        document.getElementById("card-front-heading").innerHTML = currentCard().heading;
+        document.getElementById("card-front-body").innerHTML = currentCard().text.replace('{time}',getHumanTime());
+        if(currentCard().id.match(/I/))
+          document.getElementById("pass").classList.remove("hidden");
+        else
+          document.getElementById("pass").classList.add("hidden");
+        document.getElementById("card-back-heading").innerHTML = currentCard().id;
+      }
+    }
+
+    getHumanTime = function() {
+      if(currentCard().dur)
+        return convertToHumanTime(currentCard().dur,true);
+      else
+        return state.humanTime;
+    }
+
+    convertToHumanTime = function(time, fancy) {
+      time = Math.floor(time);
+      var seconds = time%60;
+      var minutes = (time-seconds)/60;
+      if(fancy && (seconds==0)) {
+        if(minutes==1)
+          return '1 minute';
+        else
+          return minutes+' minutes';
+      } else if(seconds>=10) {
+        return minutes+":"+seconds;
+      }
+      return minutes+":0"+seconds;
+    }
+
+
+    document.getElementById("start-game").onclick = function() {
+      document.getElementById("resume-game").disabled = false;
+      setTurnLength(document.getElementById("turn-length").value);
+      state.deck = shuffle();
+      state.currentCardIndex = 0;
+      state.followup = false;
+      state.timer = false;
+      updateCardIndex(0);
+      setPage("card-front");
+    }
+
+    setTurnLength = function(text) {
+      if(!text.match(/^[1-9]?[0-9]:[0-5][0-9]$/)) {
+        state.validTime = false;
+        state.editTime = "2:00";
+        state.humanTime = "2 minutes";
+        state.computerTime = "120";
+        // document.getElementById("turn-length").color='red';   // This doesn't work, no biggie.
+        return;
+      }
+      var times = text.split(":");
+      var minutes = Number(times[0]);
+      var seconds = Number(times[1]);
+      state.computerTime = minutes*60+seconds;
+      state.humanTime = convertToHumanTime(state.computerTime,true);
+      state.editTime = text;
+      state.validTime = true;
+      // document.getElementById("turn-length").color='black';   // This doesn't work, no biggie.
+    }
+
+    document.getElementById("resume-game").onclick = function() {
+      setTurnLength(document.getElementById("turn-length").value);
+      setPage("card-back");
+    }
+
+    document.getElementById("play").onclick = function() {
+      startTimer();
+    }
+
+    tick = function() {
+      if(state.timer && !state.paused) {
+        updateTimerValue(state.endTime - Date.now());
+      }
+    }
+
+    startTimer = function() {
+      Sounds.play.play();
+      if(currentCard().dur)
+        startTimerFixed(currentCard().dur)
+      else
+        startTimerFixed(state.computerTime);
+      document.getElementById("card-front-nav").classList.add("hidden");
+      document.getElementById("card-timer-nav").classList.remove("hidden");
+    }
+
+    stopTimer = function() {
+      if(state.timer && state.timerObject) {
+        state.timer = false;
+        clearInterval(state.timerObject);
+      }
+      state.timeLeft = null;
+      state.endTime = null;
+      state.paused = false;
+      document.getElementById("card-front-nav").classList.remove("hidden");
+      document.getElementById("card-timer-nav").classList.add("hidden");
+    }
+
+    startTimerFixed = function(seconds) {
+      state.timer = true;
+      state.endTime = Date.now() + seconds*1000+500;
+      state.timeLeft = null;
+      state.paused = false;
+      updateTimerValue(seconds*1000);
+      state.timerObject = setInterval(tick, 100);
+    }
+
+    updateTimerValue = function(millis) {
+      if(millis <= 0) {
+        state.paused = true;
+        Sounds.whistle.play();
+        state.timeLeft = 0;
+        state.endTime = null;
+        document.getElementById("card-timer").innerHTML = 'Press Restart for more time';
+      } else {
+        Sounds.silence.play();
+        document.getElementById("card-timer").innerHTML = convertToHumanTime(millis/1000,false);
+      }
+    }
+
+    document.getElementById("pass").onclick = function() {
+      Sounds.pass.play();
+    }
+
+    document.getElementById("retire").onclick = function() {
+      Sounds.retire.play();
+      setPage("card-back");
+    }
+
+    document.getElementById("restart").onclick = function() {
+      startTimer();
+    }
+
+    document.getElementById("pause-resume").onclick = function() {
+      if(state.paused) {
+        if(state.timeLeft <= 0) {
+          startTimer();
+        } else {
+          updateTimerValue(state.timeLeft);
+          state.endTime = state.timeLeft + Date.now();
+          state.timeLeft = null;
+          state.paused = false;
+          Sounds.play.play();
+        }
+      } else {
+        state.paused = true;
+        state.timeLeft = state.endTime - Date.now();
+        if(state.timeLeft < 0)
+          state.timeLeft = 0;
+        state.endTime = null;
+        Sounds.timerPaused.play();
+      }   
+    }
+
+    document.getElementById("done").onclick = function() {
+      stopTimer();
+      if(state.followup || !currentCard().followup) {
+        Sounds.done.play();
+        state.followup = false;
+        setPage("card-back");
+      } else {
+        Sounds.groupShare.play();
+        state.followup = true;
+        updateCardIndex(0);
+      }
+    }
+
+    currentCard = function() {
+      return Cards[state.deck[state.currentCardIndex]];
+    }
+
+    document.getElementById("next-card").onclick = function() {
+      updateCardIndex(1);
+      if(currentCard().id.match("I"))
+        Sounds.yourCard.play();
+      else
+        Sounds.groupCard.play();
+      setPage("card-front");
+    }
+
+    document.getElementById("prev-card").onclick = function() {
+      if(state.currentCardIndex==0)
+        setPage("card-front");
+      else
+        updateCardIndex(-1);
+    }
+
+    document.getElementById("goto-settings").onclick = function() {
+      setPage("settings");
+    }
+
+    // Leave the "S" cards at the start, the "E" cards at the end, and shuffle the rest!
+    shuffle = function() {
+      Sounds.shuffle.play();
+      Sounds.shuffle.onended = (event) => { Sounds.groupCard.play() };
+      var startCards = [];
+      var endCards = [];
+      var shuffleCards = [];
+      for(var i=0;i<Cards.length;i++) {
+        if(Cards[i].id.match(/S/))
+          startCards.push(i);
+        else if(Cards[i].id.match(/E/))
+          endCards.push(i);
+        else
+          shuffleCards.push(i);
+      }     
+      for(var i=shuffleCards.length-1;i>0;i--) {
+        var index = Math.floor(Math.random()*(i+1));
+        var swap = shuffleCards[i];
+        shuffleCards[i] = shuffleCards[index];
+        shuffleCards[index] = swap;
+      }
+      return startCards.concat(shuffleCards, endCards);
+    }
+  };
+</script>
+
+</html>
