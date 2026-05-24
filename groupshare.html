@@ -356,6 +356,7 @@
         state.endTime = null;
         document.getElementById("card-timer").innerHTML = 'Press Restart for more time';
       } else {
+        Sounds.silence.play();
         document.getElementById("card-timer").innerHTML = convertToHumanTime(millis/1000,false);
       }
     }
