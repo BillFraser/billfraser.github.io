@@ -4,8 +4,8 @@
   "orientation":"portrait",
   "start_url":"http://billfraser.github.io/groupshare.pwd.html",
   "icons":[
-    {"src":"chrome-icon-144.png","sizes":"144x144","type":"image/png"},
-    {"src":"chrome-icon-192.png","sizes":"192x192","type":"image/png"},
-    {"src":"chrome-icon-512.png","sizes":"512x512","type":"image/png"}
+    {"src":"assets/images/groupshare-icon-144.png","sizes":"144x144","type":"image/png"},
+    {"src":"assets/images/groupshare-icon-192.png","sizes":"192x192","type":"image/png"},
+    {"src":"assets/images/groupshare-icon-512.png","sizes":"512x512","type":"image/png"}
   ]
 }
