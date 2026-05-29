@@ -1,0 +1,7 @@
+{
+  "name":"GroupShare",
+  "display":"fullscreen",
+  "orientation":"portrait",
+  "start_url":"groupshare.pwd.html",
+  "icons":["chrome-icon-144.png","chrome-icon-192.png","chrome-icon-512.png"]
+}
