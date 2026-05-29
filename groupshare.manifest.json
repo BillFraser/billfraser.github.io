@@ -1,7 +1,7 @@
 {
-  "name":"GroupShare",
+  "name":"Groupshare!",
   "display":"fullscreen",
   "orientation":"portrait",
-  "start_url":"groupshare.pwd.html",
+  "start_url":"http://billfraser.github.io/groupshare.pwd.html",
   "icons":["chrome-icon-144.png","chrome-icon-192.png","chrome-icon-512.png"]
 }
