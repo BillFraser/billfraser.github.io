@@ -3,5 +3,9 @@
   "display":"fullscreen",
   "orientation":"portrait",
   "start_url":"http://billfraser.github.io/groupshare.pwd.html",
-  "icons":["chrome-icon-144.png","chrome-icon-192.png","chrome-icon-512.png"]
+  "icons":[
+    {"src":"chrome-icon-144.png","sizes":144,"type","image/png"},
+    {"src":"chrome-icon-192.png","sizes":192,"type","image/png"},
+    {"src":"chrome-icon-512.png","sizes":512,"type","image/png"}
+  ]
 }
