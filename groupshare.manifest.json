@@ -2,7 +2,7 @@
   "name":"Groupshare!",
   "display":"fullscreen",
   "orientation":"portrait",
-  "start_url":"http://billfraser.github.io/groupshare.pwd.html",
+  "start_url":"http://billfraser.github.io/groupshare.html",
   "icons":[
     {"src":"assets/images/groupshare-icon-144.png","sizes":"144x144","type":"image/png"},
     {"src":"assets/images/groupshare-icon-192.png","sizes":"192x192","type":"image/png"},
